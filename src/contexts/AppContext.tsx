@@ -1,18 +1,11 @@
-import React, { PropsWithChildren, useState, useEffect } from "react";
-import { FeatureContext } from "./FeatureContext";
+import React, { PropsWithChildren } from "react";
+import { FeaturesProvider } from "./FeaturesProvider";
 import { MessagesProvider } from "./MessagesProvider";
-import { getFeatureData } from "../helpers/APImock";
 
 export default function AppContext(props: PropsWithChildren<{}>) {
-  const [features, setFeatures] = useState(getFeatureData());
-
-  useEffect(() => {
-    setFeatures(getFeatureData());
-  }, []);
-
   return (
-    <FeatureContext.Provider value={features}>
+    <FeaturesProvider>
       <MessagesProvider>{props.children}</MessagesProvider>
-    </FeatureContext.Provider>
+    </FeaturesProvider>
   );
 }
