@@ -1,0 +1,72 @@
+{
+  "AppDateToday": [
+    {
+      "type": 0,
+      "value": "Aujourd'hui"
+    }
+  ],
+  "NextMarketEvent": [
+    {
+      "options": {
+        "after_market": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ferme"
+            }
+          ]
+        },
+        "before_market": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ferme"
+            }
+          ]
+        },
+        "break": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ouvre"
+            }
+          ]
+        },
+        "close": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ferme"
+            }
+          ]
+        },
+        "close_special": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ferme"
+            }
+          ]
+        },
+        "open": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Ouvre"
+            }
+          ]
+        }
+      },
+      "type": 5,
+      "value": "status"
+    },
+    {
+      "type": 0,
+      "value": " dans "
+    },
+    {
+      "type": 1,
+      "value": "relativeTime"
+    }
+  ]
+}
