@@ -1,6 +1,6 @@
 import { DateTime } from "luxon";
 import { getRotationOffset, getMarketStatusFromString } from "../helpers/marketDataHelper";
-import { Market } from "../interfaces/Market";
+import { Market, Session } from "../interfaces/Market";
 import marketsData from "../data/markets.json";
 import { Features } from "../interfaces/Features";
 //import featuresData from "../data/features.json";
@@ -26,6 +26,18 @@ export function getMarketData(): Promise<Market[]> {
       const { timezone, sessions } = market;
       const now = DateTime.local().setZone(timezone);
 
+      function getEndTimeBeforeNextStatus(session: Session, index: number, array: Session[]): Date {
+        const nextIndex = index + 1;
+        if (nextIndex >= array.length) {
+          return session.endTime;
+        }
+        const nextSession = array[nextIndex];
+        if (session.status !== nextSession.status) {
+          return session.endTime;
+        }
+        return getEndTimeBeforeNextStatus(nextSession, nextIndex, array);
+      }
+
       const reworkedSessions = sessions
         .map((session) => {
           // change from weekday and generic time to actual date
@@ -38,20 +50,12 @@ export function getMarketData(): Promise<Market[]> {
             endTime: endTime.toJSDate(),
           };
         })
-        .sort((sessionA, sessionB) => sessionB.startTime.getTime() - sessionA.startTime.getTime())
+        .sort((sessionA, sessionB) => sessionA.startTime.getTime() - sessionB.startTime.getTime())
         .map((session, index, array) => {
           // Update the end time if 2 consecutive session have the same status
-          let newEndTime = session.endTime;
-          const previousIndex = index - 1;
-          if (previousIndex >= 0) {
-            const previousSession = array[previousIndex];
-            if (session.status === previousSession.status) {
-              newEndTime = previousSession.endTime;
-            }
-          }
+          const newEndTime = getEndTimeBeforeNextStatus(session, index, array);
           return { ...session, endTime: newEndTime };
         })
-        .sort((sessionA, sessionB) => sessionA.startTime.getTime() - sessionB.startTime.getTime())
         .filter((session, index, array) => {
           // remove merged sessions
           const previousIndex = index - 1;
@@ -63,7 +67,6 @@ export function getMarketData(): Promise<Market[]> {
           }
           return true;
         });
-
       return { ...market, sessions: reworkedSessions };
     });
   return new Promise((resolve) => {
