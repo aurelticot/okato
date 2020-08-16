@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import { FeatureContext } from "../contexts/FeatureContext";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, IconButton } from "@material-ui/core";
 import {
@@ -9,6 +8,7 @@ import {
 } from "@material-ui/icons";
 import { Market } from "../interfaces/Market";
 import FeatureStatus from "../enums/FeatureStatus";
+import { useFeature } from "../hooks/featuresHooks";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +30,8 @@ export interface MarketTitleProps {
 }
 
 export function MarketTitle(props: MarketTitleProps) {
-  const { bookmark, reminder } = useContext(FeatureContext);
+  const bookmark = useFeature("bookmark");
+  const reminder = useFeature("reminder");
   const classes = useStyles(props);
 
   const { market } = props;
