@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { DateTime, Interval } from "luxon";
 import { Session } from "../interfaces/Market";
-import MarketStatus from "../enums/MarketStatus";
+import { FormattedMessage } from "react-intl";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,25 +44,6 @@ export interface MarketNextEventProps {
   nextEvent: Session;
 }
 
-function getRenderedStatus(status: MarketStatus): string {
-  switch (status) {
-    case MarketStatus.Opened:
-    case MarketStatus.Break:
-      return `Open`;
-    case MarketStatus.Closed_Special:
-    case MarketStatus.Closed:
-    case MarketStatus.BeforeMarket:
-    case MarketStatus.AfterMarket:
-    default:
-      return `Close`;
-  }
-}
-
-function defineNextEventAnnouncement(status: MarketStatus, relativeTime: string): string {
-  const renderedStatus = getRenderedStatus(status);
-  return `${renderedStatus} in ${relativeTime}`;
-}
-
 export function MarketNextEvent({ nextEvent }: MarketNextEventProps) {
   const { status, startTime } = nextEvent;
   const classes = useStyles();
@@ -73,5 +54,14 @@ export function MarketNextEvent({ nextEvent }: MarketNextEventProps) {
     return null;
   }
 
-  return <Box className={classes.root}>{defineNextEventAnnouncement(status, relativeTime)}</Box>;
+  return (
+    <Box className={classes.root}>
+      <FormattedMessage
+        id="NextMarketEvent"
+        description="next market event"
+        defaultMessage="{status, select, open {Open} break {Open} close {Close} close_special {Close} before_market {Close} after_market {Close} } in {relativeTime}"
+        values={{ status, relativeTime }}
+      />
+    </Box>
+  );
 }
