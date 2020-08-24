@@ -1,4 +1,4 @@
-import Feature from "../helpers/Feature";
+import Feature from "helpers/Feature";
 
 export interface Features {
   [key: string]: Feature;

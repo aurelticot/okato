@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { DateTime, Interval } from "luxon";
-import { Session } from "../interfaces/Market";
+import { Session } from "interfaces/Market";
 import { FormattedMessage } from "react-intl";
 
 const useStyles = makeStyles((theme) => ({

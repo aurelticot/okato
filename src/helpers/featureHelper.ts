@@ -1,4 +1,4 @@
-import FeatureStatus from "../enums/FeatureStatus";
+import FeatureStatus from "enums/FeatureStatus";
 
 export function getFeatureStatusFromString(status: string): FeatureStatus {
   switch (status) {

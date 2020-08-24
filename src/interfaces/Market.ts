@@ -1,4 +1,4 @@
-import MarketStatus from "../enums/MarketStatus";
+import MarketStatus from "enums/MarketStatus";
 
 export interface Market {
   id: number;

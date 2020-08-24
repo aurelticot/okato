@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import AppContext from "./contexts/AppContext";
+import AppContext from "contexts/AppContext";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { CssBaseline } from "@material-ui/core";
-import { App } from "./components/App";
-import { themes } from "./themes/themes";
-import * as serviceWorker from "./serviceWorker";
+import { App } from "containers/App";
+import { themes } from "themes/themes";
+import * as serviceWorker from "serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>

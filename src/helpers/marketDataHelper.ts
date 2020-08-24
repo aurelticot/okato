@@ -1,6 +1,6 @@
-import MarketStatus, { getMainStatus } from "../enums/MarketStatus";
+import MarketStatus, { getMainStatus } from "enums/MarketStatus";
 import { DateTime } from "luxon";
-import { Market, Session } from "../interfaces/Market";
+import { Market, Session } from "interfaces/Market";
 
 export const dayRotationOffset: { [key: number]: { [key: number]: number } } = {
   1: {

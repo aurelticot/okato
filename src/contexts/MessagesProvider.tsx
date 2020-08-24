@@ -1,8 +1,8 @@
 import React, { PropsWithChildren } from "react";
 import { IntlProvider } from "react-intl";
-import config from "../config";
-import frenchMessages from "../lang/fr.json";
-import englishMessages from "../lang/en.json";
+import config from "config";
+import frenchMessages from "lang/fr.json";
+import englishMessages from "lang/en.json";
 
 const { defaultLocale } = config;
 

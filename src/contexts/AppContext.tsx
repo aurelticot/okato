@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from "react";
-import { FeaturesProvider } from "./FeaturesProvider";
-import { MessagesProvider } from "./MessagesProvider";
+import { FeaturesProvider } from "contexts/FeaturesProvider";
+import { MessagesProvider } from "contexts/MessagesProvider";
 
 export default function AppContext(props: PropsWithChildren<{}>) {
   return (

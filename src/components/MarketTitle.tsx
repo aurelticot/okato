@@ -6,8 +6,8 @@ import {
   BookmarkBorder as BookmarkBorderIcon,
   Notifications as NotificationsIcon,
 } from "@material-ui/icons";
-import { Market } from "../interfaces/Market";
-import { useFeature } from "../hooks/featuresHooks";
+import { Market } from "interfaces/Market";
+import { useFeature } from "hooks/featuresHooks";
 
 const useStyles = makeStyles((theme) => ({
   root: {

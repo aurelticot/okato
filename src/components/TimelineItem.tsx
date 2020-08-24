@@ -1,9 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Divider } from "@material-ui/core";
-import { TimelineItemHeader } from "./TimelineItemHeader";
-import { Timeline } from "./Timeline";
-import { Market } from "../interfaces/Market";
+import { TimelineItemHeader } from "components/TimelineItemHeader";
+import { Timeline } from "components/Timeline";
+import { Market } from "interfaces/Market";
 
 const useStyles = makeStyles((theme) => ({
   root: {

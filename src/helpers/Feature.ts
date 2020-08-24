@@ -1,5 +1,5 @@
-import FeatureStatus from "../enums/FeatureStatus";
-import { getFeatureStatusFromString } from "../helpers/featureHelper";
+import FeatureStatus from "enums/FeatureStatus";
+import { getFeatureStatusFromString } from "helpers/featureHelper";
 
 export default class Feature {
   private readonly _status: FeatureStatus;

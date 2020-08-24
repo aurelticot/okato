@@ -1,9 +1,9 @@
 import { DateTime } from "luxon";
-import { getRotationOffset, getMarketStatusFromString } from "../helpers/marketDataHelper";
-import { Market, Session } from "../interfaces/Market";
-import marketsData from "../data/markets.json";
-import { Features } from "../interfaces/Features";
-import Feature from "./Feature";
+import { getRotationOffset, getMarketStatusFromString } from "helpers/marketDataHelper";
+import { Market, Session } from "interfaces/Market";
+import marketsData from "data/markets.json";
+import { Features } from "interfaces/Features";
+import Feature from "helpers/Feature";
 
 export function getMarketData(): Promise<Market[]> {
   const reworkedData: Market[] = marketsData

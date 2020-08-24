@@ -1,6 +1,6 @@
 import React from "react";
-import { useRealTime } from "../hooks/timeHooks";
-import { Clock } from "./Clock";
+import { useRealTime } from "hooks/timeHooks";
+import { Clock } from "components/Clock";
 
 interface RealTimeClockProps {
   timezone?: string;

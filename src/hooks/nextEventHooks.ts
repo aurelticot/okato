@@ -1,6 +1,6 @@
-import { Market, Session } from "../interfaces/Market";
+import { Market, Session } from "interfaces/Market";
 import { useState, useEffect } from "react";
-import { getNextEvent } from "../helpers/marketDataHelper";
+import { getNextEvent } from "helpers/marketDataHelper";
 
 export function useNextEvent(market: Market, useMain: boolean = false, baseTime?: Date): Session | null {
   const [nextEvent, setNextEvent] = useState<Session | null>(null);

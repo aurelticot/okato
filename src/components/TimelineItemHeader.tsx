@@ -1,13 +1,13 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
-import { MarketTitle } from "./MarketTitle";
-import { RealTimeClock } from "./RealTimeClock";
-import { MarketNextEvent } from "./MarketNextEvent";
-import { Market } from "../interfaces/Market";
-import MarketStatus from "../enums/MarketStatus";
-import { useMarketStatus } from "../hooks/marketStatusHooks";
-import { useNextEvent } from "../hooks/nextEventHooks";
+import { MarketTitle } from "components/MarketTitle";
+import { RealTimeClock } from "components/RealTimeClock";
+import { MarketNextEvent } from "components/MarketNextEvent";
+import { Market } from "interfaces/Market";
+import MarketStatus from "enums/MarketStatus";
+import { useMarketStatus } from "hooks/marketStatusHooks";
+import { useNextEvent } from "hooks/nextEventHooks";
 
 const useStyles = makeStyles((theme) => ({
   root: {

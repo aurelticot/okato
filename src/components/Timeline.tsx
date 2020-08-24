@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { DateTime } from "luxon";
-import * as TimelineHelper from "../helpers/TimelineHelper";
+import * as TimelineHelper from "helpers/TimelineHelper";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Paper, Divider } from "@material-ui/core";
-import { Session } from "../interfaces/Market";
-import MarketStatus from "../enums/MarketStatus";
+import { Session } from "interfaces/Market";
+import MarketStatus from "enums/MarketStatus";
 
 const useStyles = makeStyles((theme) => ({
   root: {

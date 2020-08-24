@@ -1,8 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
-import { TimelineView } from "./TimelineView";
-import { ApplicationBar } from "./ApplicationBar";
+import { TimelineView } from "containers/TimelineView";
+import { ApplicationBar } from "components/ApplicationBar";
 
 const useStyles = makeStyles((theme) => ({
   root: {

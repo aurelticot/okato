@@ -1,5 +1,5 @@
 import React, { useState, useEffect, PropsWithChildren } from "react";
-import { getFeatureData } from "../helpers/APImock";
+import { getFeatureData } from "helpers/APImock";
 
 export const FeatureContext = React.createContext(getFeatureData());
 
@@ -10,9 +10,5 @@ export function FeaturesProvider(props: PropsWithChildren<{}>) {
     setFeatures(getFeatureData());
   }, []);
 
-  return (
-    <FeatureContext.Provider value={features}>
-      {props.children}
-    </FeatureContext.Provider>
-  );
+  return <FeatureContext.Provider value={features}>{props.children}</FeatureContext.Provider>;
 }

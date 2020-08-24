@@ -1,7 +1,7 @@
 import { DateTime } from "luxon";
-import { Session } from "../interfaces/Market";
-import MarketStatus from "../enums/MarketStatus";
-import config from "../config";
+import { Session } from "interfaces/Market";
+import MarketStatus from "enums/MarketStatus";
+import config from "config";
 
 const timelineHourPeriod = config.timelineVisiblePeriod;
 

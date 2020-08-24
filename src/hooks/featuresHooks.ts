@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { FeatureContext } from "../contexts/FeaturesProvider";
-import Feature from "../helpers/Feature";
+import { FeatureContext } from "contexts/FeaturesProvider";
+import Feature from "helpers/Feature";
 
 const emptyFeature = new Feature("hidden");
 

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Divider } from "@material-ui/core";
-import { TimelineTime } from "./TimelineTime";
-import { TimelineItem } from "./TimelineItem";
-import { getMarketData } from "../helpers/APImock";
-import { Market } from "../interfaces/Market";
+import { TimelineTime } from "components/TimelineTime";
+import { TimelineItem } from "components/TimelineItem";
+import { getMarketData } from "helpers/APImock";
+import { Market } from "interfaces/Market";
 
 const useStyles = makeStyles((theme) => ({
   root: {
