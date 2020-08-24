@@ -3,8 +3,8 @@ import { Market } from "interfaces/Market";
 import MarketStatus, { getMainStatus } from "enums/MarketStatus";
 import { getMarketStatus } from "helpers/marketDataHelper";
 
-export function useMarketStatus(market: Market, useMain: boolean = false, baseTime?: Date): MarketStatus | null {
-  const [status, setStatus] = useState<MarketStatus | null>(null);
+export function useMarketStatus(market: Market, useMain: boolean = false, baseTime?: Date): MarketStatus {
+  const [status, setStatus] = useState<MarketStatus>(MarketStatus.Closed);
 
   useEffect(() => {
     const timer = setInterval(() => {

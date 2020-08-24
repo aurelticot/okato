@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function defineMarketStatusClass(status: MarketStatus | null, classes: any): string {
+function defineMarketStatusClass(status: MarketStatus, classes: any): string {
   switch (status) {
     case MarketStatus.Opened:
     case MarketStatus.Break:
