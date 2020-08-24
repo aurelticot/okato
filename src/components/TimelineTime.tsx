@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { AppDate } from "./AppDate";
-import { AppClock } from "./AppClock";
+import { RealTimeClock } from "./RealTimeClock";
 import { useFeature } from "../hooks/featuresHooks";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,7 +20,7 @@ export function TimelineTime() {
   return (
     <Box className={classes.root}>
       {timelineScroll.isEnabled() && <AppDate />}
-      <AppClock displaySeconds></AppClock>
+      <RealTimeClock displaySeconds />
     </Box>
   );
 }

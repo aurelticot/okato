@@ -2,7 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { DateTime } from "luxon";
 import { Box } from "@material-ui/core";
-import { useRealTime } from "../hooks/timeHooks";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,20 +28,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export interface AppClockProps {
+interface ClockProps {
+  time: Date;
   timezone?: string;
   displayTimezone?: boolean;
   displayDayDiff?: boolean;
   displaySeconds?: boolean;
 }
 
-export function AppClock(props: AppClockProps) {
-  const { timezone, displayTimezone, displayDayDiff, displaySeconds } = props;
+export function Clock(props: ClockProps) {
+  const { time, timezone, displayTimezone, displayDayDiff, displaySeconds } = props;
 
-  const time = useRealTime(timezone);
-  const localTime = useRealTime();
+  const workingTime = DateTime.fromJSDate(time, { zone: timezone || "local" });
+  const localTime = DateTime.fromJSDate(time, { zone: "local" });
 
-  const normalizedTime = DateTime.local(time.year, time.month, time.day);
+  const normalizedTime = DateTime.local(workingTime.year, workingTime.month, workingTime.day);
   let displayedDayDiff = null;
   if (normalizedTime < localTime.startOf("day")) {
     displayedDayDiff = "-1";
@@ -56,13 +56,13 @@ export function AppClock(props: AppClockProps) {
     <Box className={classes.root}>
       {displayDayDiff && displayedDayDiff && <Box className={classes.dayDiff}>{displayedDayDiff}</Box>}
       <Box className={classes.time}>
-        <Box>{time.toFormat("HH")}</Box>
+        <Box>{workingTime.toFormat("HH")}</Box>
         <Box>:</Box>
-        <Box>{time.toFormat("mm")}</Box>
+        <Box>{workingTime.toFormat("mm")}</Box>
         {displaySeconds && <Box>:</Box>}
-        {displaySeconds && <Box>{time.toFormat("ss")}</Box>}
+        {displaySeconds && <Box>{workingTime.toFormat("ss")}</Box>}
       </Box>
-      {displayTimezone && <Box className={classes.timezone}>{`GMT${time.toFormat("Z")}`}</Box>}
+      {displayTimezone && <Box className={classes.timezone}>{`GMT${workingTime.toFormat("Z")}`}</Box>}
     </Box>
   );
 }

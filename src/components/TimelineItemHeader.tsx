@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { MarketTitle } from "./MarketTitle";
-import { AppClock } from "./AppClock";
+import { RealTimeClock } from "./RealTimeClock";
 import { MarketNextEvent } from "./MarketNextEvent";
 import { Market } from "../interfaces/Market";
 import MarketStatus from "../enums/MarketStatus";
@@ -63,7 +63,7 @@ export function TimelineItemHeader(props: TimelineItemHeaderProps) {
         <MarketTitle market={market} />
       </Box>
       <Box className={`${classes.headerComponent}`} display="flex" justifyContent="center">
-        <AppClock timezone={market.timezone} displayTimezone displayDayDiff />
+        <RealTimeClock timezone={market.timezone} displayTimezone displayDayDiff />
       </Box>
       <Box className={classes.headerComponent} display="flex" justifyContent="flex-end">
         {nextEvent !== null && <MarketNextEvent nextEvent={nextEvent} />}
