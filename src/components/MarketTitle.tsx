@@ -7,7 +7,6 @@ import {
   Notifications as NotificationsIcon,
 } from "@material-ui/icons";
 import { Market } from "../interfaces/Market";
-import FeatureStatus from "../enums/FeatureStatus";
 import { useFeature } from "../hooks/featuresHooks";
 
 const useStyles = makeStyles((theme) => ({
@@ -39,7 +38,7 @@ export function MarketTitle(props: MarketTitleProps) {
 
   return (
     <Box className={classes.root}>
-      {bookmark.status === FeatureStatus.Enabled && (
+      {bookmark.isEnabled() && (
         <IconButton size="small" onClick={() => setBookmarked(!bookmarked)}>
           {bookmarked ? (
             <BookmarkIcon className={classes.bookmarkIcon} />
@@ -49,9 +48,7 @@ export function MarketTitle(props: MarketTitleProps) {
         </IconButton>
       )}
       <Box>{market.name}</Box>
-      {reminder.status === FeatureStatus.Enabled && market.hasReminder && (
-        <NotificationsIcon className={classes.reminderIcon} />
-      )}
+      {reminder.isEnabled() && market.hasReminder && <NotificationsIcon className={classes.reminderIcon} />}
     </Box>
   );
 }

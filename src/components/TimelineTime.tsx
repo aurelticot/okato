@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { AppDate } from "./AppDate";
 import { AppClock } from "./AppClock";
+import { useFeature } from "../hooks/featuresHooks";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,10 +15,11 @@ const useStyles = makeStyles((theme) => ({
 
 export function TimelineTime() {
   const classes = useStyles();
+  const timelineScroll = useFeature("timelineScroll");
 
   return (
     <Box className={classes.root}>
-      <AppDate></AppDate>
+      {timelineScroll.isEnabled() && <AppDate />}
       <AppClock displaySeconds></AppClock>
     </Box>
   );

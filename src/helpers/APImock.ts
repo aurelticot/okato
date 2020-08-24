@@ -3,8 +3,7 @@ import { getRotationOffset, getMarketStatusFromString } from "../helpers/marketD
 import { Market, Session } from "../interfaces/Market";
 import marketsData from "../data/markets.json";
 import { Features } from "../interfaces/Features";
-//import featuresData from "../data/features.json";
-import { getFeatureStatusFromString } from "../helpers/featureHelper";
+import Feature from "./Feature";
 
 export function getMarketData(): Promise<Market[]> {
   const reworkedData: Market[] = marketsData
@@ -76,14 +75,8 @@ export function getMarketData(): Promise<Market[]> {
 
 export function getFeatureData(): Features {
   return {
-    bookmark: {
-      status: getFeatureStatusFromString("hidden"),
-    },
-    reminder: {
-      status: getFeatureStatusFromString("hidden"),
-    },
-    timelineScroll: {
-      status: getFeatureStatusFromString("disabled"),
-    },
+    bookmark: new Feature("hidden"),
+    reminder: new Feature("hidden"),
+    timelineScroll: new Feature("disabled"),
   };
 }

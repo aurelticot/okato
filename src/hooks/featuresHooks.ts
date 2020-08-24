@@ -1,11 +1,8 @@
 import { useContext } from "react";
 import { FeatureContext } from "../contexts/FeaturesProvider";
-import { Feature } from "../interfaces/Feature";
-import FeatureStatus from "../enums/FeatureStatus";
+import Feature from "../helpers/Feature";
 
-const emptyFeature = {
-  status: FeatureStatus.Hidden,
-};
+const emptyFeature = new Feature("hidden");
 
 export function useFeature(featureName: string): Feature {
   const features = useContext(FeatureContext);
