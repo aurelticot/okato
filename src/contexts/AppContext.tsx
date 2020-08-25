@@ -1,17 +1,17 @@
 import React, { PropsWithChildren } from "react";
 import { FeaturesProvider } from "contexts/FeaturesProvider";
+import { PreferencesProvider } from "contexts/PreferencesProvider";
 import { MessagesProvider } from "contexts/MessagesProvider";
-import { ThemeProvider } from "@material-ui/core/styles";
-import { themes } from "themes/themes";
+import { ThemesProvider } from "contexts/ThemesProvider";
 
 export default function AppContext(props: PropsWithChildren<{}>) {
   return (
     <FeaturesProvider>
-      <MessagesProvider>
-        <ThemeProvider theme={themes.dark}>
-          {props.children}
-        </ThemeProvider>
-      </MessagesProvider>
+      <PreferencesProvider>
+        <MessagesProvider>
+          <ThemesProvider>{props.children}</ThemesProvider>
+        </MessagesProvider>
+      </PreferencesProvider>
     </FeaturesProvider>
   );
 }
