@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { TimelineView } from "containers/TimelineView";
@@ -15,9 +16,18 @@ export function App() {
   const classes = useStyles();
 
   return (
-    <Box className={classes.root}>
-      <TimelineView />
-      <ApplicationBar />
-    </Box>
+    <Router>
+      <Box className={classes.root}>
+        <Switch>
+          <Route path="/" exact>
+            <TimelineView />
+          </Route>
+          <Route path="/timeline">
+            <TimelineView />
+          </Route>
+        </Switch>
+        <ApplicationBar />
+      </Box>
+    </Router>
   );
 }
