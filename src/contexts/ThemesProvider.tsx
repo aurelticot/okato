@@ -2,39 +2,49 @@ import React, { PropsWithChildren, useState, useEffect } from "react";
 import { ThemeProvider, Theme } from "@material-ui/core/styles";
 import { themes } from "themes/themes";
 import { usePreference } from "hooks/preferencesHooks";
+import PreferenceKeys from "enums/PreferenceKeys";
+import config from "config";
 
-function getThemeToApply(theme: string, osTheme: string): Theme {
+const defaultTheme = config.defaultPreferences.theme;
+
+function getMuiTheme(theme: string = defaultTheme): Theme {
   switch (theme) {
     case "light":
       return themes.light;
     case "dark":
       return themes.dark;
     default:
-      return getThemeToApply(osTheme, osTheme);
+      return themes.light;
   }
 }
 
-export function ThemesProvider(props: PropsWithChildren<{}>) {
-  const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
-  const [osTheme, setOSTheme] = useState(prefersDarkScheme.matches ? "dark" : "light");
-
-  console.log(`osTheme: ${osTheme}`);
-
+function useSystemTheme(): string {
+  const systemDarkThemeMatcher = window.matchMedia("(prefers-color-scheme: dark)");
+  const [systemTheme, setSystemTheme] = useState(systemDarkThemeMatcher.matches ? "dark" : "light");
   useEffect(() => {
     function setter(e: MediaQueryListEvent) {
-      console.log(`changing OS theme`);
-      setOSTheme(e.matches ? "dark" : "light");
+      setSystemTheme(e.matches ? "dark" : "light");
     }
-    prefersDarkScheme.addListener(setter);
+    systemDarkThemeMatcher.addListener(setter);
     return () => {
-      prefersDarkScheme.removeListener(setter);
+      systemDarkThemeMatcher.removeListener(setter);
     };
   });
+  return systemTheme;
+}
 
-  const [themePreference] = usePreference("theme");
-  console.log(`Theme preference: ${themePreference}`);
+function resolveTheme(systemTheme: string, themePreference: string): string {
+  return !themePreference || themePreference === "system" ? systemTheme : themePreference;
+}
 
-  const appliedTheme = getThemeToApply(themePreference, osTheme);
+export function ThemesProvider(props: PropsWithChildren<{}>) {
+  const systemTheme = useSystemTheme();
+  const [themePreference] = usePreference(PreferenceKeys.Theme);
+
+  const [appliedTheme, setAppliedTheme] = useState<Theme>(getMuiTheme(resolveTheme(systemTheme, themePreference)));
+  useEffect(() => {
+    setAppliedTheme(getMuiTheme(resolveTheme(systemTheme, themePreference)));
+  }, [systemTheme, themePreference]);
 
   return <ThemeProvider theme={appliedTheme}>{props.children}</ThemeProvider>;
 }
