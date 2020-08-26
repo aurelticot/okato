@@ -1,7 +1,8 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppBar, Toolbar, Box, IconButton } from "@material-ui/core";
-import { Sort as SortIcon, Edit as EditIcon, Person as PersonIcon } from "@material-ui/icons";
+import { ClearAll as TimelineIcon, Edit as EditIcon, Settings as SettingsIcon } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -18,14 +19,14 @@ export function ApplicationBar() {
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
         <Box width="100%" display="flex" justifyContent="space-between">
-          <IconButton edge="start">
-            <SortIcon />
+          <IconButton edge="start" component={Link} to="/">
+            <TimelineIcon />
           </IconButton>
           <IconButton>
             <EditIcon />
           </IconButton>
-          <IconButton edge="end">
-            <PersonIcon />
+          <IconButton edge="end" component={Link} to="/settings">
+            <SettingsIcon />
           </IconButton>
         </Box>
       </Toolbar>
