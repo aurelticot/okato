@@ -6,7 +6,13 @@ import englishMessages from "lang/en.json";
 import PreferenceKeys from "enums/PreferenceKeys";
 import { usePreference } from "hooks/preferencesHooks";
 
-const defaultLanguage = config.defaultPreferences.language;
+const defaultLanguageValue = config.defaultPreferenceValues.language;
+const defaultLanguage = resolveLanguageValue(defaultLanguageValue);
+
+function resolveLanguageValue(value: string | string[]): string {
+  const resolvedLanguage = Array.isArray(value) ? value[0] : value;
+  return resolvedLanguage === "system" ? getBrowserLanguage() : resolvedLanguage;
+}
 
 function getBrowserLanguage(): string {
   const browserLanguage = navigator.language.split(/[-_]/)[0];
@@ -20,12 +26,19 @@ function getBrowserLanguage(): string {
   }
 }
 
-function getLocaleMessages(locale: string) {
+// TODO change the return type of the function
+function getLocaleMessages(locale: string | string[]): any {
+  if (Array.isArray(locale)) {
+    return englishMessages;
+  }
   switch (locale) {
     case "fr":
       return frenchMessages;
     case "en":
       return englishMessages;
+    case "system":
+      const systemLanguage = getBrowserLanguage();
+      return getLocaleMessages(systemLanguage);
     default:
       return englishMessages;
   }
@@ -34,7 +47,7 @@ function getLocaleMessages(locale: string) {
 export function MessagesProvider(props: PropsWithChildren<{}>) {
   const browserLanguage = getBrowserLanguage();
   const [languagePreference] = usePreference(PreferenceKeys.Language);
-  const locale = languagePreference || browserLanguage;
+  const locale: string = resolveLanguageValue(languagePreference || browserLanguage);
   const messages = getLocaleMessages(locale);
 
   return (

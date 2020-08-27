@@ -1,22 +1,8 @@
 import React, { PropsWithChildren, useState, useEffect } from "react";
 import { ThemeProvider, Theme } from "@material-ui/core/styles";
-import { themes } from "themes/themes";
+import { getTheme } from "themes/themes";
 import { usePreference } from "hooks/preferencesHooks";
 import PreferenceKeys from "enums/PreferenceKeys";
-import config from "config";
-
-const defaultTheme = config.defaultPreferences.theme;
-
-function getMuiTheme(theme: string = defaultTheme): Theme {
-  switch (theme) {
-    case "light":
-      return themes.light;
-    case "dark":
-      return themes.dark;
-    default:
-      return themes.light;
-  }
-}
 
 function useSystemTheme(): string {
   const systemDarkThemeMatcher = window.matchMedia("(prefers-color-scheme: dark)");
@@ -33,17 +19,19 @@ function useSystemTheme(): string {
   return systemTheme;
 }
 
-function resolveTheme(systemTheme: string, themePreference: string): string {
-  return !themePreference || themePreference === "system" ? systemTheme : themePreference;
+function resolveTheme(systemTheme: string, themePreference: string | string[]): string {
+  return !themePreference || themePreference === "system" || Array.isArray(themePreference)
+    ? systemTheme
+    : themePreference;
 }
 
 export function ThemesProvider(props: PropsWithChildren<{}>) {
   const systemTheme = useSystemTheme();
   const [themePreference] = usePreference(PreferenceKeys.Theme);
 
-  const [appliedTheme, setAppliedTheme] = useState<Theme>(getMuiTheme(resolveTheme(systemTheme, themePreference)));
+  const [appliedTheme, setAppliedTheme] = useState<Theme>(getTheme(resolveTheme(systemTheme, themePreference)));
   useEffect(() => {
-    setAppliedTheme(getMuiTheme(resolveTheme(systemTheme, themePreference)));
+    setAppliedTheme(getTheme(resolveTheme(systemTheme, themePreference)));
   }, [systemTheme, themePreference]);
 
   return <ThemeProvider theme={appliedTheme}>{props.children}</ThemeProvider>;
