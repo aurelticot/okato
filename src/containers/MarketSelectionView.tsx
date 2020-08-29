@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { getMarketData } from "helpers/APImock";
 import { Box, List, ListSubheader, ListItemText, ListItem, ListItemSecondaryAction, Switch } from "@material-ui/core";
 import { Market } from "interfaces/Market";
+import { usePreference } from "hooks/preferencesHooks";
+import SettingKeys from "enums/SettingKeys";
 
 export function MarketSelectionView() {
   const [allMarkets, setAllMarkets] = useState<Market[]>([]);
-  const [marketSelection, setMarketSelection] = useState<string[]>([]);
+  const [marketSelection, setMarketSelection] = usePreference(SettingKeys.MarketSelection);
 
   useEffect(() => {
     getMarketData().then((marketsData) => {
@@ -29,7 +31,7 @@ export function MarketSelectionView() {
       <List subheader={<ListSubheader>Markets</ListSubheader>}>
         {allMarkets.map((market) => {
           return (
-            <ListItem>
+            <ListItem key={market.code}>
               <ListItemText id={`switch-list-label-${market.code}`} primary={market.name} secondary={market.city} />
               <ListItemSecondaryAction>
                 <Switch

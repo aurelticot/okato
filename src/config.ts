@@ -9,6 +9,7 @@ const daysInFuture = 3;
 const defaultPreferenceValues: Preferences = {
   [SettingKeys.Theme]: "system",
   [SettingKeys.Language]: "en",
+  [SettingKeys.MarketSelection]: ["NYSE", "NASDAQ", "EURONEXT"],
 };
 
 export default {
