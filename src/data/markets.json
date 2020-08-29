@@ -1,7 +1,8 @@
 [
   {
-    "id": 1,
+    "code": "ASX",
     "name": "ASX",
+    "city": "Sydney",
     "timezone": "Australia/Sydney",
     "timezoneOffset": 10,
     "longitude": 151.2099,
@@ -113,8 +114,9 @@
     ]
   },
   {
-    "id": 2,
+    "code": "EURONEXT",
     "name": "EURONEXT",
+    "city": "Paris",
     "timezone": "Europe/Paris",
     "timezoneOffset": 2,
     "longitude": 2.349014,
@@ -226,8 +228,9 @@
     ]
   },
   {
-    "id": 3,
+    "code": "3",
     "name": "NYSE",
+    "city": "New York",
     "timezone": "America/New_York",
     "timezoneOffset": -4,
     "longitude": -73.935242,
@@ -339,8 +342,9 @@
     ]
   },
   {
-    "id": 4,
+    "code": "NASDAQ",
     "name": "NASDAQ",
+    "city": "New York",
     "timezone": "America/New_York",
     "timezoneOffset": -4,
     "longitude": -73.935242,
@@ -452,8 +456,9 @@
     ]
   },
   {
-    "id": 5,
+    "code": "HKEX",
     "name": "HKEX",
+    "city": "Hong Kong",
     "timezone": "Asia/Hong_Kong",
     "timezoneOffset": 8,
     "longitude": 114.177216,
@@ -625,8 +630,9 @@
     ]
   },
   {
-    "id": 6,
+    "code": "SGX",
     "name": "SGX",
+    "city": "Singapore",
     "timezone": "Asia/Singapore",
     "timezoneOffset": 8,
     "longitude": 103.851959,
@@ -798,8 +804,9 @@
     ]
   },
   {
-    "id": 7,
+    "code": "LSE",
     "name": "LSE",
+    "city": "London",
     "timezone": "Europe/London",
     "timezoneOffset": 1,
     "longitude": -0.118092,

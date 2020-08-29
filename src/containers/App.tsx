@@ -5,6 +5,7 @@ import { Box } from "@material-ui/core";
 import { TimelineView } from "containers/TimelineView";
 import { ApplicationBar } from "components/ApplicationBar";
 import { SettingsView } from "./SettingsView";
+import { MarketSelectionView } from "./MarketSelectionView";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +29,9 @@ export function App() {
           </Route>
           <Route path="/settings">
             <SettingsView />
+          </Route>
+          <Route path="/selection">
+            <MarketSelectionView />
           </Route>
         </Switch>
         <ApplicationBar />

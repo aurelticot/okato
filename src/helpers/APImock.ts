@@ -11,9 +11,10 @@ export function getMarketData(): Promise<Market[]> {
     .map((market, index) => {
       // structure market
       return {
-        id: market.id,
+        code: market.code,
         order: index + 1,
         name: market.name,
+        city: market.city,
         timezone: market.timezone,
         hasReminder: false,
         isBookmarked: false,

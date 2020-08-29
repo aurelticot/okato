@@ -28,7 +28,7 @@ export function TimelineView() {
       <TimelineTime />
       <Box style={{ marginTop: "10px" }}>
         {markets.map((market) => {
-          return <TimelineItem key={market.id} market={market}></TimelineItem>;
+          return <TimelineItem key={market.code} market={market}></TimelineItem>;
         })}
       </Box>
       <Divider />

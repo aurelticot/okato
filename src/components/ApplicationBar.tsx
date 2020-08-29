@@ -22,7 +22,7 @@ export function ApplicationBar() {
           <IconButton edge="start" component={Link} to="/">
             <TimelineIcon />
           </IconButton>
-          <IconButton>
+          <IconButton component={Link} to="/selection">
             <EditIcon />
           </IconButton>
           <IconButton edge="end" component={Link} to="/settings">
