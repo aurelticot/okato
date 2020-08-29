@@ -1,11 +1,9 @@
 import React from "react";
 import { Box } from "@material-ui/core";
-import { FormattedMessage } from "react-intl";
+import { useIntl } from "react-intl";
 
 export function AppDate() {
-  return (
-    <Box>
-      <FormattedMessage id="AppDateToday" defaultMessage="Today" />
-    </Box>
-  );
+  const i18n = useIntl();
+
+  return <Box>{i18n.formatMessage({ id: "AppDateToday", defaultMessage: "Today" })}</Box>;
 }

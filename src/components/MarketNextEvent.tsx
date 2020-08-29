@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { DateTime, Interval } from "luxon";
 import { Session } from "interfaces/Market";
-import { FormattedMessage } from "react-intl";
+import { useIntl } from "react-intl";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,6 +47,7 @@ export interface MarketNextEventProps {
 export function MarketNextEvent({ nextEvent }: MarketNextEventProps) {
   const { status, startTime } = nextEvent;
   const classes = useStyles();
+  const i18n = useIntl();
 
   const relativeTime = useRelativeTime(startTime);
 
@@ -56,12 +57,15 @@ export function MarketNextEvent({ nextEvent }: MarketNextEventProps) {
 
   return (
     <Box className={classes.root}>
-      <FormattedMessage
-        id="NextMarketEvent"
-        description="next market event"
-        defaultMessage="{status, select, open {Open} break {Open} close {Close} close_special {Close} before_market {Close} after_market {Close} } in {relativeTime}"
-        values={{ status, relativeTime }}
-      />
+      {i18n.formatMessage(
+        {
+          id: "NextMarketEvent",
+          description: "next market event",
+          defaultMessage:
+            "{status, select, open {Open} break {Open} close {Close} close_special {Close} before_market {Close} after_market {Close} } in {relativeTime}",
+        },
+        { status, relativeTime }
+      )}
     </Box>
   );
 }

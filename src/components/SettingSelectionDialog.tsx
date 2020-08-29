@@ -1,6 +1,7 @@
 import React from "react";
 import { Dialog, DialogTitle, List, ListItem, ListItemText } from "@material-ui/core";
 import SettingValue from "interfaces/SettingValue";
+import { useIntl } from "react-intl";
 
 export interface SettingSelectionDialogProps {
   title: string;
@@ -12,6 +13,7 @@ export interface SettingSelectionDialogProps {
 
 export function SettingSelectionDialog(props: SettingSelectionDialogProps) {
   const { open, selectedValue, onClose, title, values } = props;
+  const i18n = useIntl();
 
   const handleClose = () => {
     onClose(selectedValue);
@@ -27,7 +29,7 @@ export function SettingSelectionDialog(props: SettingSelectionDialogProps) {
       <List>
         {values.map((value) => (
           <ListItem button onClick={() => handleListItemClick(value.key)} key={value.key}>
-            <ListItemText primary={value.localizedLabelKey} />
+            <ListItemText primary={i18n.formatMessage({ id: value.localizedLabelKey })} />
           </ListItem>
         ))}
       </List>
