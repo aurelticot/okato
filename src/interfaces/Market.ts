@@ -1,9 +1,10 @@
 import MarketStatus from "enums/MarketStatus";
 
 export interface Market {
-  id: number;
+  code: string;
   order: number;
   name: string;
+  city: string;
   timezone: string;
   hasReminder: boolean;
   isBookmarked: boolean;

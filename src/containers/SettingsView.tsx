@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { SettingSelectionDialog } from "components/SettingSelectionDialog";
-import { List, ListSubheader, ListItem, ListItemIcon, Divider, ListItemText, Box } from "@material-ui/core";
+import { List, ListSubheader, ListItem, ListItemIcon, ListItemText, Box } from "@material-ui/core";
 import { InvertColors as InvertColorsIcon, Translate as LanguageIcon } from "@material-ui/icons";
 import { usePreference } from "hooks/preferencesHooks";
 import SettingKeys from "enums/SettingKeys";
@@ -76,7 +76,6 @@ export function SettingsView() {
             secondary={i18n.formatMessage({ id: selectedThemeDefinition.localizedLabelKey })}
           />
         </ListItem>
-        <Divider />
         <ListItem button onClick={() => openDialog(languageDialogConfiguration)}>
           <ListItemIcon>
             <LanguageIcon />
@@ -86,7 +85,6 @@ export function SettingsView() {
             secondary={i18n.formatMessage({ id: selectedLanguageDefinition.localizedLabelKey })}
           />
         </ListItem>
-        <Divider />
       </List>
       <SettingSelectionDialog open={dialogOpen} {...dialogProps} onClose={closeDialog} />
     </Box>
