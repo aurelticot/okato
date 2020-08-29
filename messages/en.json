@@ -1,0 +1,44 @@
+{
+  "settings.theme.label": {
+    "defaultMessage": "Theme"
+  },
+  "settings.theme.selectionDialog.title": {
+    "defaultMessage": "Select a theme"
+  },
+  "settings.theme.value.system.label": {
+    "defaultMessage": "System default"
+  },
+  "settings.theme.value.dark.label": {
+    "defaultMessage": "Dark"
+  },
+  "settings.theme.value.light.label": {
+    "defaultMessage": "Light"
+  },
+
+  "settings.language.label": {
+    "defaultMessage": "Language"
+  },
+  "settings.language.selectionDialog.title": {
+    "defaultMessage": "Select a language"
+  },
+  "settings.language.value.system.label": {
+    "defaultMessage": "System default"
+  },
+  "settings.language.value.en.label": {
+    "defaultMessage": "English"
+  },
+  "settings.language.value.fr.label": {
+    "defaultMessage": "Français"
+  },
+
+  "SettingsView.title": {
+    "defaultMessage": "Settings"
+  },
+  "AppDateToday": {
+    "defaultMessage": "Today"
+  },
+  "NextMarketEvent": {
+    "defaultMessage": "{status, select, open {Open} break {Open} close {Close} close_special {Close} before_market {Close} after_market {Close} } in {relativeTime}",
+    "description": "next market event"
+  }
+}

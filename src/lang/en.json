@@ -68,5 +68,71 @@
       "type": 1,
       "value": "relativeTime"
     }
+  ],
+  "SettingsView.title": [
+    {
+      "type": 0,
+      "value": "Settings"
+    }
+  ],
+  "settings.language.label": [
+    {
+      "type": 0,
+      "value": "Language"
+    }
+  ],
+  "settings.language.selectionDialog.title": [
+    {
+      "type": 0,
+      "value": "Select a language"
+    }
+  ],
+  "settings.language.value.en.label": [
+    {
+      "type": 0,
+      "value": "English"
+    }
+  ],
+  "settings.language.value.fr.label": [
+    {
+      "type": 0,
+      "value": "Français"
+    }
+  ],
+  "settings.language.value.system.label": [
+    {
+      "type": 0,
+      "value": "System default"
+    }
+  ],
+  "settings.theme.label": [
+    {
+      "type": 0,
+      "value": "Theme"
+    }
+  ],
+  "settings.theme.selectionDialog.title": [
+    {
+      "type": 0,
+      "value": "Select a theme"
+    }
+  ],
+  "settings.theme.value.dark.label": [
+    {
+      "type": 0,
+      "value": "Dark"
+    }
+  ],
+  "settings.theme.value.light.label": [
+    {
+      "type": 0,
+      "value": "Light"
+    }
+  ],
+  "settings.theme.value.system.label": [
+    {
+      "type": 0,
+      "value": "System default"
+    }
   ]
 }
