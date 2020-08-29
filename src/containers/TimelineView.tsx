@@ -5,6 +5,8 @@ import { TimelineTime } from "components/TimelineTime";
 import { TimelineItem } from "components/TimelineItem";
 import { getMarketData } from "helpers/APImock";
 import { Market } from "interfaces/Market";
+import { usePreference } from "hooks/preferencesHooks";
+import SettingKeys from "enums/SettingKeys";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -14,12 +16,17 @@ const useStyles = makeStyles((theme) => ({
 
 export function TimelineView() {
   const [markets, setMarkets] = useState<Market[]>([]);
+  const [selectedMarkets] = usePreference(SettingKeys.MarketSelection);
 
   useEffect(() => {
     getMarketData().then((marketsData) => {
-      setMarkets(marketsData);
+      setMarkets(
+        marketsData.filter((market) => {
+          return selectedMarkets.indexOf(market.code) >= 0 ? true : false;
+        })
+      );
     });
-  }, []);
+  }, [selectedMarkets]);
 
   const classes = useStyles();
 
