@@ -1,41 +1,20 @@
-import PreferenceKeys from "enums/PreferenceKeys";
-import AvailablePreferences from "interfaces/AvailablePreferences";
+import SettingKeys from "enums/SettingKeys";
 import Preferences from "interfaces/Preferences";
+import settings from "settings";
 
 const timelineVisiblePeriod = 24;
 const daysInPast = 3;
 const daysInFuture = 3;
 
-const availablePreferences: AvailablePreferences = {
-  [PreferenceKeys.Theme]: {
-    key: PreferenceKeys.Theme,
-    localizedLabelKey: "Theme",
-    values: [
-      { key: "system", localizedLabelKey: "System default" },
-      { key: "dark", localizedLabelKey: "Dark" },
-      { key: "light", localizedLabelKey: "Light" },
-    ],
-  },
-  [PreferenceKeys.Language]: {
-    key: PreferenceKeys.Language,
-    localizedLabelKey: "Language",
-    values: [
-      { key: "system", localizedLabelKey: "System default" },
-      { key: "en", localizedLabelKey: "English" },
-      { key: "fr", localizedLabelKey: "Français" },
-    ],
-  },
-};
-
 const defaultPreferenceValues: Preferences = {
-  [PreferenceKeys.Theme]: "system",
-  [PreferenceKeys.Language]: "en",
+  [SettingKeys.Theme]: "system",
+  [SettingKeys.Language]: "en",
 };
 
 export default {
   timelineVisiblePeriod,
   daysInPast,
   daysInFuture,
-  availablePreferences,
+  settings,
   defaultPreferenceValues,
 };

@@ -1,14 +1,14 @@
 import { useContext } from "react";
 import { PreferenceContext } from "contexts/PreferencesProvider";
-import PreferenceKeys from "enums/PreferenceKeys";
-import PreferenceDefinition from "interfaces/PreferenceDefinition";
+import SettingKeys from "enums/SettingKeys";
+import PreferenceDefinition from "interfaces/Setting";
 import config from "config";
 
-const { availablePreferences } = config;
+const { settings } = config;
 
-export function usePreference(key: PreferenceKeys) {
+export function usePreference(key: SettingKeys) {
   const { preferences, setPreference } = useContext(PreferenceContext);
-  const definition = availablePreferences[key];
+  const definition = settings[key];
   const preference = preferences[key];
   // TODO handle undefined preference
   function setter(value: string | string[]): void {

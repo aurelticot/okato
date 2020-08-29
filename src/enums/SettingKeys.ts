@@ -1,7 +1,7 @@
-enum PreferenceKeys {
+enum SettingKeys {
   Theme = "theme",
   Language = "language",
   TimelineSort = "timelineSort",
 }
 
-export default PreferenceKeys;
+export default SettingKeys;

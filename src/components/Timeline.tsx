@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { DateTime } from "luxon";
-import * as TimelineHelper from "helpers/TimelineHelper";
+import * as TimelineHelper from "helpers/timelineHelper";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Paper, Divider } from "@material-ui/core";
 import { Session } from "interfaces/Market";

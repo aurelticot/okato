@@ -1,11 +1,11 @@
 import React from "react";
 import { Dialog, DialogTitle, List, ListItem, ListItemText } from "@material-ui/core";
-import PreferenceValueDefinition from "interfaces/PreferenceValueDefinition";
+import SettingValue from "interfaces/SettingValue";
 
 export interface SettingSelectionDialogProps {
   title: string;
   open: boolean;
-  values: PreferenceValueDefinition[];
+  values: SettingValue[];
   selectedValue: string | string[];
   onClose: (value: string | string[]) => void;
 }
