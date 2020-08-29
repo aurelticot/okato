@@ -4,6 +4,7 @@ import { Box, List, ListSubheader, ListItemText, ListItem, ListItemSecondaryActi
 import { Market } from "interfaces/Market";
 import { usePreference } from "hooks/preferencesHooks";
 import SettingKeys from "enums/SettingKeys";
+import { useIntl } from "react-intl";
 
 export function MarketSelectionView() {
   const [allMarkets, setAllMarkets] = useState<Market[]>([]);
@@ -26,9 +27,17 @@ export function MarketSelectionView() {
     setMarketSelection(newMarketSelection);
   };
 
+  const i18n = useIntl();
+
   return (
     <Box>
-      <List subheader={<ListSubheader>Markets</ListSubheader>}>
+      <List
+        subheader={
+          <ListSubheader>
+            {i18n.formatMessage({ id: "MarketSelectionView.title", defaultMessage: "Markets" })}
+          </ListSubheader>
+        }
+      >
         {allMarkets.map((market) => {
           return (
             <ListItem key={market.code}>

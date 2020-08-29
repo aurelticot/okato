@@ -5,6 +5,12 @@
       "value": "Aujourd'hui"
     }
   ],
+  "MarketSelectionView.title": [
+    {
+      "type": 0,
+      "value": "Marchés"
+    }
+  ],
   "NextMarketEvent": [
     {
       "options": {
@@ -102,7 +108,7 @@
   "settings.language.value.system.label": [
     {
       "type": 0,
-      "value": "System default"
+      "value": "Préférence système"
     }
   ],
   "settings.theme.label": [
@@ -132,7 +138,7 @@
   "settings.theme.value.system.label": [
     {
       "type": 0,
-      "value": "Par default"
+      "value": "Préférence système"
     }
   ]
 }

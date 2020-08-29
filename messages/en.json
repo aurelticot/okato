@@ -34,6 +34,9 @@
   "SettingsView.title": {
     "defaultMessage": "Settings"
   },
+  "MarketSelectionView.title": {
+    "defaultMessage": "Markets"
+  },
   "AppDateToday": {
     "defaultMessage": "Today"
   },

@@ -6,7 +6,7 @@
     "defaultMessage": "Sélectionnez un thème"
   },
   "settings.theme.value.system.label": {
-    "defaultMessage": "Par default"
+    "defaultMessage": "Préférence système"
   },
   "settings.theme.value.dark.label": {
     "defaultMessage": "Foncé"
@@ -22,7 +22,7 @@
     "defaultMessage": "Sélectionnez une langue"
   },
   "settings.language.value.system.label": {
-    "defaultMessage": "System default"
+    "defaultMessage": "Préférence système"
   },
   "settings.language.value.en.label": {
     "defaultMessage": "English"
@@ -33,6 +33,9 @@
 
   "SettingsView.title": {
     "defaultMessage": "Paramètres"
+  },
+  "MarketSelectionView.title": {
+    "defaultMessage": "Marchés"
   },
   "AppDateToday": {
     "defaultMessage": "Aujourd'hui"

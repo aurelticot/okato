@@ -5,6 +5,12 @@
       "value": "Today"
     }
   ],
+  "MarketSelectionView.title": [
+    {
+      "type": 0,
+      "value": "Markets"
+    }
+  ],
   "NextMarketEvent": [
     {
       "options": {
