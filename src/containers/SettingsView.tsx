@@ -3,7 +3,7 @@ import { SettingSelectionDialog } from "components/SettingSelectionDialog";
 import { List, ListSubheader, ListItem, ListItemIcon, ListItemText, Box } from "@material-ui/core";
 import { InvertColors as InvertColorsIcon, Translate as LanguageIcon } from "@material-ui/icons";
 import { usePreference } from "hooks/preferencesHooks";
-import SettingKeys from "enums/SettingKeys";
+import SettingKey from "enums/SettingKey";
 import PreferenceValueDefinition from "interfaces/SettingValue";
 import { useIntl } from "react-intl";
 
@@ -42,7 +42,7 @@ export function SettingsView() {
     description: "Title of the Settings view",
   });
 
-  const [theme, setTheme, themesPreferenceDefinition] = usePreference(SettingKeys.Theme);
+  const [theme, setTheme, themesPreferenceDefinition] = usePreference(SettingKey.Theme);
   const selectedThemeDefinition = themesPreferenceDefinition.values.filter((valueDefinition) => {
     return valueDefinition.key === theme;
   })[0];
@@ -53,7 +53,7 @@ export function SettingsView() {
     onClose: setTheme,
   };
 
-  const [language, setLanguage, languagesPreferenceDefinition] = usePreference(SettingKeys.Language);
+  const [language, setLanguage, languagesPreferenceDefinition] = usePreference(SettingKey.Language);
   const selectedLanguageDefinition = languagesPreferenceDefinition.values.filter((valueDefinition) => {
     return valueDefinition.key === language;
   })[0];

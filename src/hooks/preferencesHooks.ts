@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { PreferenceContext } from "contexts/PreferencesProvider";
-import SettingKeys from "enums/SettingKeys";
+import SettingKey from "enums/SettingKey";
 import PreferenceDefinition from "interfaces/Setting";
 import config from "config";
 
 const { settings, defaultPreferenceValues } = config;
 
-export function usePreference(key: SettingKeys) {
+export function usePreference(key: SettingKey) {
   const { preferences, setPreference } = useContext(PreferenceContext);
   const definition = settings[key];
   const defaultValue = defaultPreferenceValues[key];

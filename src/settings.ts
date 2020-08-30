@@ -1,9 +1,9 @@
-import SettingKeys from "enums/SettingKeys";
+import SettingKey from "enums/SettingKey";
 import Settings from "interfaces/Settings";
 
 const settings: Settings = {
-  [SettingKeys.Theme]: {
-    key: SettingKeys.Theme,
+  [SettingKey.Theme]: {
+    key: SettingKey.Theme,
     localizedLabelKey: "settings.theme.label",
     values: [
       { key: "system", localizedLabelKey: "settings.theme.value.system.label" },
@@ -11,8 +11,8 @@ const settings: Settings = {
       { key: "light", localizedLabelKey: "settings.theme.value.light.label" },
     ],
   },
-  [SettingKeys.Language]: {
-    key: SettingKeys.Language,
+  [SettingKey.Language]: {
+    key: SettingKey.Language,
     localizedLabelKey: "settings.language.label",
     values: [
       { key: "system", localizedLabelKey: "settings.language.value.system.label" },

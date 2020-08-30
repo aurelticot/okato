@@ -1,4 +1,4 @@
-import SettingKeys from "enums/SettingKeys";
+import SettingKey from "enums/SettingKey";
 import Preferences from "interfaces/Preferences";
 import settings from "settings";
 
@@ -7,9 +7,9 @@ const daysInPast = 3;
 const daysInFuture = 3;
 
 const defaultPreferenceValues: Preferences = {
-  [SettingKeys.Theme]: "system",
-  [SettingKeys.Language]: "en",
-  [SettingKeys.MarketSelection]: ["NYSE", "NASDAQ", "EURONEXT"],
+  [SettingKey.Theme]: "system",
+  [SettingKey.Language]: "en",
+  [SettingKey.MarketSelection]: ["NYSE", "NASDAQ", "EURONEXT"],
 };
 
 export default {
