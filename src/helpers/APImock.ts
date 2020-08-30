@@ -4,7 +4,7 @@ import { Market, Session } from "interfaces/Market";
 import marketsData from "data/markets.json";
 import { Features } from "interfaces/Features";
 import Feature from "helpers/Feature";
-import { sortPopularity } from "enums/MarketSortingMethod";
+import { sortCapitalisation } from "enums/MarketSortingMethod";
 
 export function getMarketData(): Promise<Market[]> {
   const reworkedData: Market[] = marketsData
@@ -70,7 +70,7 @@ export function getMarketData(): Promise<Market[]> {
         });
       return { ...market, sessions: reworkedSessions };
     })
-    .sort(sortPopularity);
+    .sort(sortCapitalisation);
   return new Promise((resolve) => {
     resolve(reworkedData);
   });
