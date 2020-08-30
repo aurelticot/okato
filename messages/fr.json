@@ -31,6 +31,31 @@
     "defaultMessage": "Français"
   },
 
+  "settings.marketSort.label": {
+    "defaultMessage": "Tri des marchés"
+  },
+  "settings.marketSort.selectionDialog.title": {
+    "defaultMessage": "Sélectionnez une méthode"
+  },
+  "settings.marketSort.value.capitalisation.label": {
+    "defaultMessage": "Capitalisation"
+  },
+  "settings.marketSort.value.alphabetically.label": {
+    "defaultMessage": "Alphabétique"
+  },
+  "settings.marketSort.value.chronologically.label": {
+    "defaultMessage": "Chronologique"
+  },
+  "settings.marketSort.value.capitalisationReverse.label": {
+    "defaultMessage": "Capitalisation (inverse)"
+  },
+  "settings.marketSort.value.alphabeticallyReverse.label": {
+    "defaultMessage": "Alphabétique (inverse)"
+  },
+  "settings.marketSort.value.chronologicallyReverse.label": {
+    "defaultMessage": "Chronologique (inverse)"
+  },
+
   "SettingsView.title": {
     "defaultMessage": "Paramètres"
   },

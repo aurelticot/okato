@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useState, useEffect } from "react";
 import { ThemeProvider, Theme } from "@material-ui/core/styles";
 import { getTheme } from "themes/themes";
 import { usePreference } from "hooks/preferencesHooks";
-import SettingKeys from "enums/SettingKeys";
+import SettingKey from "enums/SettingKey";
 
 function useSystemTheme(): string {
   const systemDarkThemeMatcher = window.matchMedia("(prefers-color-scheme: dark)");
@@ -27,7 +27,7 @@ function resolveTheme(systemTheme: string, themePreference: string | string[]): 
 
 export function ThemesProvider(props: PropsWithChildren<{}>) {
   const systemTheme = useSystemTheme();
-  const [themePreference] = usePreference(SettingKeys.Theme);
+  const [themePreference] = usePreference(SettingKey.Theme);
 
   const [appliedTheme, setAppliedTheme] = useState<Theme>(getTheme(resolveTheme(systemTheme, themePreference)));
   useEffect(() => {

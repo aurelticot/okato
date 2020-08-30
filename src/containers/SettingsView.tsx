@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import { SettingSelectionDialog } from "components/SettingSelectionDialog";
 import { List, ListSubheader, ListItem, ListItemIcon, ListItemText, Box } from "@material-ui/core";
-import { InvertColors as InvertColorsIcon, Translate as LanguageIcon } from "@material-ui/icons";
+import {
+  InvertColors as InvertColorsIcon,
+  Translate as LanguageIcon,
+  SortByAlpha as SortByAlphaIcon,
+} from "@material-ui/icons";
 import { usePreference } from "hooks/preferencesHooks";
-import SettingKeys from "enums/SettingKeys";
+import SettingKey from "enums/SettingKey";
 import PreferenceValueDefinition from "interfaces/SettingValue";
 import { useIntl } from "react-intl";
 
@@ -42,26 +46,37 @@ export function SettingsView() {
     description: "Title of the Settings view",
   });
 
-  const [theme, setTheme, themesPreferenceDefinition] = usePreference(SettingKeys.Theme);
-  const selectedThemeDefinition = themesPreferenceDefinition.values.filter((valueDefinition) => {
+  const [theme, setTheme, themesSettingsDefinition] = usePreference(SettingKey.Theme);
+  const selectedThemeDefinition = themesSettingsDefinition.values.filter((valueDefinition) => {
     return valueDefinition.key === theme;
   })[0];
   const themeDialogConfiguration = {
     title: i18n.formatMessage({ id: "settings.theme.selectionDialog.title" }),
     selectedValue: theme,
-    values: themesPreferenceDefinition.values,
+    values: themesSettingsDefinition.values,
     onClose: setTheme,
   };
 
-  const [language, setLanguage, languagesPreferenceDefinition] = usePreference(SettingKeys.Language);
-  const selectedLanguageDefinition = languagesPreferenceDefinition.values.filter((valueDefinition) => {
+  const [language, setLanguage, languagesSettingsDefinition] = usePreference(SettingKey.Language);
+  const selectedLanguageDefinition = languagesSettingsDefinition.values.filter((valueDefinition) => {
     return valueDefinition.key === language;
   })[0];
   const languageDialogConfiguration = {
     title: i18n.formatMessage({ id: "settings.language.selectionDialog.title" }),
     selectedValue: language,
-    values: languagesPreferenceDefinition.values,
+    values: languagesSettingsDefinition.values,
     onClose: setLanguage,
+  };
+
+  const [marketSort, setMarketSort, marketSortSettingsDefinition] = usePreference(SettingKey.MarketSort);
+  const selectedMarketSortDefinition = marketSortSettingsDefinition.values.filter((valueDefinition) => {
+    return valueDefinition.key === marketSort;
+  })[0];
+  const marketSortDialogConfiguration = {
+    title: i18n.formatMessage({ id: "settings.marketSort.selectionDialog.title" }),
+    selectedValue: marketSort,
+    values: marketSortSettingsDefinition.values,
+    onClose: setMarketSort,
   };
 
   return (
@@ -72,7 +87,7 @@ export function SettingsView() {
             <InvertColorsIcon />
           </ListItemIcon>
           <ListItemText
-            primary={i18n.formatMessage({ id: themesPreferenceDefinition.localizedLabelKey })}
+            primary={i18n.formatMessage({ id: themesSettingsDefinition.localizedLabelKey })}
             secondary={i18n.formatMessage({ id: selectedThemeDefinition.localizedLabelKey })}
           />
         </ListItem>
@@ -81,8 +96,17 @@ export function SettingsView() {
             <LanguageIcon />
           </ListItemIcon>
           <ListItemText
-            primary={i18n.formatMessage({ id: languagesPreferenceDefinition.localizedLabelKey })}
+            primary={i18n.formatMessage({ id: languagesSettingsDefinition.localizedLabelKey })}
             secondary={i18n.formatMessage({ id: selectedLanguageDefinition.localizedLabelKey })}
+          />
+        </ListItem>
+        <ListItem button onClick={() => openDialog(marketSortDialogConfiguration)}>
+          <ListItemIcon>
+            <SortByAlphaIcon />
+          </ListItemIcon>
+          <ListItemText
+            primary={i18n.formatMessage({ id: marketSortSettingsDefinition.localizedLabelKey })}
+            secondary={i18n.formatMessage({ id: selectedMarketSortDefinition.localizedLabelKey })}
           />
         </ListItem>
       </List>

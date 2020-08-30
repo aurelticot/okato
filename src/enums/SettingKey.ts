@@ -1,8 +1,8 @@
-enum SettingKeys {
+enum SettingKey {
   Theme = "theme",
   Language = "language",
-  TimelineSort = "timelineSort",
+  MarketSort = "marketSort",
   MarketSelection = "marketSelection",
 }
 
-export default SettingKeys;
+export default SettingKey;

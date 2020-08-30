@@ -4,18 +4,19 @@ import { Market, Session } from "interfaces/Market";
 import marketsData from "data/markets.json";
 import { Features } from "interfaces/Features";
 import Feature from "helpers/Feature";
+import { sortCapitalisation } from "enums/MarketSortingMethod";
 
 export function getMarketData(): Promise<Market[]> {
   const reworkedData: Market[] = marketsData
-    .sort((marketA, marketB) => marketB.longitude - marketA.longitude)
     .map((market, index) => {
       // structure market
       return {
         code: market.code,
-        order: index + 1,
         name: market.name,
         city: market.city,
+        longitude: market.longitude,
         timezone: market.timezone,
+        capitalisation: market.capitalisation,
         hasReminder: false,
         isBookmarked: false,
         sessions: market.sessions,
@@ -68,7 +69,8 @@ export function getMarketData(): Promise<Market[]> {
           return true;
         });
       return { ...market, sessions: reworkedSessions };
-    });
+    })
+    .sort(sortCapitalisation);
   return new Promise((resolve) => {
     resolve(reworkedData);
   });

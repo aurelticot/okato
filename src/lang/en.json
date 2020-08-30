@@ -111,6 +111,54 @@
       "value": "System default"
     }
   ],
+  "settings.marketSort.label": [
+    {
+      "type": 0,
+      "value": "Market sorting"
+    }
+  ],
+  "settings.marketSort.selectionDialog.title": [
+    {
+      "type": 0,
+      "value": "Select a sorting method"
+    }
+  ],
+  "settings.marketSort.value.alphabetically.label": [
+    {
+      "type": 0,
+      "value": "Alphabetically"
+    }
+  ],
+  "settings.marketSort.value.alphabeticallyReverse.label": [
+    {
+      "type": 0,
+      "value": "Alphabetically (reverse)"
+    }
+  ],
+  "settings.marketSort.value.capitalisation.label": [
+    {
+      "type": 0,
+      "value": "Capitalisation"
+    }
+  ],
+  "settings.marketSort.value.capitalisationReverse.label": [
+    {
+      "type": 0,
+      "value": "Capitalisation (reverse)"
+    }
+  ],
+  "settings.marketSort.value.chronologically.label": [
+    {
+      "type": 0,
+      "value": "Chronologically"
+    }
+  ],
+  "settings.marketSort.value.chronologicallyReverse.label": [
+    {
+      "type": 0,
+      "value": "Chronologically (reverse)"
+    }
+  ],
   "settings.theme.label": [
     {
       "type": 0,
