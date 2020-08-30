@@ -5,6 +5,8 @@ export interface Market {
   order: number;
   name: string;
   city: string;
+  longitude: number;
+  capitalisation: number;
   timezone: string;
   hasReminder: boolean;
   isBookmarked: boolean;
