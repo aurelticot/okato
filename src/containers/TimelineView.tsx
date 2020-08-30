@@ -7,6 +7,7 @@ import { getMarketData } from "helpers/APImock";
 import { Market } from "interfaces/Market";
 import { usePreference } from "hooks/preferencesHooks";
 import SettingKey from "enums/SettingKey";
+import { getSortingFunction, getMarketSortingMethodByString } from "enums/MarketSortingMethod";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
 export function TimelineView() {
   const [markets, setMarkets] = useState<Market[]>([]);
   const [selectedMarkets] = usePreference(SettingKey.MarketSelection);
+  const [marketSort] = usePreference(SettingKey.MarketSort);
+
+  const sortMethod = getSortingFunction(getMarketSortingMethodByString(marketSort));
 
   useEffect(() => {
     getMarketData().then((marketsData) => {
@@ -34,7 +38,7 @@ export function TimelineView() {
     <Box className={classes.root}>
       <TimelineTime />
       <Box style={{ marginTop: "10px" }}>
-        {markets.map((market) => {
+        {[...markets].sort(sortMethod).map((market) => {
           return <TimelineItem key={market.code} market={market}></TimelineItem>;
         })}
       </Box>

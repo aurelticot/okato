@@ -1,13 +1,11 @@
 import React, { PropsWithChildren } from "react";
 import { IntlProvider } from "react-intl";
-import config from "config";
 import frenchMessages from "lang/fr.json";
 import englishMessages from "lang/en.json";
 import SettingKey from "enums/SettingKey";
 import { usePreference } from "hooks/preferencesHooks";
 
-const defaultLanguageValue = config.defaultPreferenceValues.language;
-const defaultLanguage = resolveLanguageValue(defaultLanguageValue);
+const defaultLanguage = "en";
 
 function resolveLanguageValue(value: string | string[]): string {
   const resolvedLanguage = Array.isArray(value) ? value[0] : value;
