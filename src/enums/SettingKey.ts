@@ -1,7 +1,7 @@
 enum SettingKey {
   Theme = "theme",
   Language = "language",
-  TimelineSort = "timelineSort",
+  MarketSort = "marketSort",
   MarketSelection = "marketSelection",
 }
 

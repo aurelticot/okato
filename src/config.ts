@@ -1,6 +1,7 @@
 import SettingKey from "enums/SettingKey";
 import Preferences from "interfaces/Preferences";
 import settings from "settings";
+import MarketSortingMethod from "enums/MarketSortingMethod";
 
 const timelineVisiblePeriod = 24;
 const daysInPast = 3;
@@ -8,8 +9,9 @@ const daysInFuture = 3;
 
 const defaultPreferenceValues: Preferences = {
   [SettingKey.Theme]: "system",
-  [SettingKey.Language]: "en",
+  [SettingKey.Language]: "system",
   [SettingKey.MarketSelection]: ["NYSE", "NASDAQ", "EURONEXT"],
+  [SettingKey.MarketSort]: MarketSortingMethod.Chronologically,
 };
 
 export default {

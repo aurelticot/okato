@@ -31,6 +31,31 @@
     "defaultMessage": "Français"
   },
 
+  "settings.marketSort.label": {
+    "defaultMessage": "Market sorting"
+  },
+  "settings.marketSort.selectionDialog.title": {
+    "defaultMessage": "Select a sorting method"
+  },
+  "settings.marketSort.value.capitalisation.label": {
+    "defaultMessage": "Capitalisation"
+  },
+  "settings.marketSort.value.alphabetically.label": {
+    "defaultMessage": "Alphabetically"
+  },
+  "settings.marketSort.value.chronologically.label": {
+    "defaultMessage": "Chronologically"
+  },
+  "settings.marketSort.value.capitalisationReverse.label": {
+    "defaultMessage": "Capitalisation (reverse)"
+  },
+  "settings.marketSort.value.alphabeticallyReverse.label": {
+    "defaultMessage": "Alphabetically (reverse)"
+  },
+  "settings.marketSort.value.chronologicallyReverse.label": {
+    "defaultMessage": "Chronologically (reverse)"
+  },
+
   "SettingsView.title": {
     "defaultMessage": "Settings"
   },

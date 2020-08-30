@@ -1,5 +1,6 @@
 import SettingKey from "enums/SettingKey";
 import Settings from "interfaces/Settings";
+import MarketSortingMethod from "enums/MarketSortingMethod";
 
 const settings: Settings = {
   [SettingKey.Theme]: {
@@ -18,6 +19,30 @@ const settings: Settings = {
       { key: "system", localizedLabelKey: "settings.language.value.system.label" },
       { key: "en", localizedLabelKey: "settings.language.value.en.label" },
       { key: "fr", localizedLabelKey: "settings.language.value.fr.label" },
+    ],
+  },
+  [SettingKey.MarketSort]: {
+    key: SettingKey.MarketSort,
+    localizedLabelKey: "settings.marketSort.label",
+    values: [
+      { key: MarketSortingMethod.Capitalisation, localizedLabelKey: "settings.marketSort.value.capitalisation.label" },
+      { key: MarketSortingMethod.Alphabetically, localizedLabelKey: "settings.marketSort.value.alphabetically.label" },
+      {
+        key: MarketSortingMethod.Chronologically,
+        localizedLabelKey: "settings.marketSort.value.chronologically.label",
+      },
+      {
+        key: MarketSortingMethod.CapitalisationReverse,
+        localizedLabelKey: "settings.marketSort.value.capitalisationReverse.label",
+      },
+      {
+        key: MarketSortingMethod.AlphabeticallyReverse,
+        localizedLabelKey: "settings.marketSort.value.alphabeticallyReverse.label",
+      },
+      {
+        key: MarketSortingMethod.ChronologicallyReverse,
+        localizedLabelKey: "settings.marketSort.value.chronologicallyReverse.label",
+      },
     ],
   },
 };
