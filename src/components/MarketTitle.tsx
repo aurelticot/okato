@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 export interface MarketTitleProps {
   market: Market;
+  time: Date | null;
 }
 
 export function MarketTitle(props: MarketTitleProps) {
@@ -41,8 +42,8 @@ export function MarketTitle(props: MarketTitleProps) {
   const reminder = useFeature("reminder");
   const classes = useStyles(props);
 
-  const { market } = props;
-  const status = useMarketStatus(market, true);
+  const { market, time } = props;
+  const status = useMarketStatus(market, true, time);
   const [bookmarked, setBookmarked] = useState(market.isBookmarked);
 
   return (

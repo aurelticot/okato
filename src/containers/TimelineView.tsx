@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box, Divider } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { TimelineTime } from "components/TimelineTime";
 import { TimelineItem } from "components/TimelineItem";
 import { getMarketData } from "helpers/APImock";
@@ -8,6 +8,7 @@ import { Market } from "interfaces/Market";
 import { usePreference } from "hooks/preferencesHooks";
 import SettingKey from "enums/SettingKey";
 import { getSortingFunction, getMarketSortingMethodByString } from "enums/MarketSortingMethod";
+import { useSynchronizedScroll } from "hooks/SynchronizedTimelineHooks";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,17 +33,41 @@ export function TimelineView() {
     });
   }, [selectedMarkets]);
 
-  const classes = useStyles();
+  const [time, setTime] = useState<Date | null>(null);
 
+  const handleTimeNavigation = useCallback((newTime: Date) => {
+    setTime(newTime);
+  }, []);
+
+  const handleBackToRealTime = useCallback(() => {
+    setTime(null);
+  }, []);
+
+  const [registerScrollSync, unregisterScrollSync] = useSynchronizedScroll();
+
+  const classes = useStyles();
   return (
     <Box className={classes.root}>
-      <TimelineTime />
+      <TimelineTime
+        time={time}
+        onTimeNavigation={handleTimeNavigation}
+        onClickBackToRealTime={handleBackToRealTime}
+        registerScrollSync={registerScrollSync}
+        unregisterScrollSync={unregisterScrollSync}
+      />
       <Box style={{ marginTop: "10px" }}>
         {[...markets].sort(sortMethod).map((market) => {
-          return <TimelineItem key={market.code} market={market}></TimelineItem>;
+          return (
+            <TimelineItem
+              key={market.code}
+              time={time}
+              market={market}
+              registerScrollSync={registerScrollSync}
+              unregisterScrollSync={unregisterScrollSync}
+            />
+          );
         })}
       </Box>
-      <Divider />
     </Box>
   );
 }

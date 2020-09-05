@@ -3,7 +3,7 @@ import { Session } from "interfaces/Market";
 import MarketStatus from "enums/MarketStatus";
 import config from "config";
 
-const timelineHourPeriod = config.timelineVisiblePeriod;
+const { daysInFuture, daysInPast } = config;
 
 export interface Segment {
   start: number;
@@ -44,28 +44,31 @@ function cleanTimelineSegments(segments: Segment[]): Segment[] {
 }
 
 export function resolveTimelineSegments(time: DateTime, timezone: string, sessions: Session[]): Segment[] {
-  const timelineViewportStart = time.minus({ hours: timelineHourPeriod / 2 });
-  const timelineViewportEnd = time.plus({ hours: timelineHourPeriod / 2 });
+  const timelineStart = time.minus({ days: daysInPast });
+  const timelineEnd = time.plus({ days: daysInFuture });
+
+  //const timelineViewportStart = time.minus({ hours: timelineVisiblePeriod / 2 });
+  //const timelineViewportEnd = time.plus({ hours: timelineVisiblePeriod / 2 });
 
   const segments = sessions
-    .filter((session) => {
-      return !(
-        DateTime.fromJSDate(session.startTime, { zone: timezone }) > timelineViewportEnd ||
-        DateTime.fromJSDate(session.endTime, { zone: timezone }) < timelineViewportStart
-      );
-    })
+    // .filter((session) => {
+    //   return !(
+    //     DateTime.fromJSDate(session.startTime, { zone: timezone }) > timelineEnd ||
+    //     DateTime.fromJSDate(session.endTime, { zone: timezone }) < timelineStart
+    //   );
+    // })
     .map((session) => {
       const { startTime, endTime, status } = session;
       let sessionStartTime = DateTime.fromJSDate(startTime, { zone: timezone });
-      if (sessionStartTime < timelineViewportStart) {
-        sessionStartTime = timelineViewportStart;
+      if (sessionStartTime < timelineStart) {
+        sessionStartTime = timelineStart;
       }
       let sessionEndTime = DateTime.fromJSDate(endTime, { zone: timezone });
-      if (sessionEndTime > timelineViewportEnd) {
-        sessionEndTime = timelineViewportEnd;
+      if (sessionEndTime > timelineEnd) {
+        sessionEndTime = timelineEnd;
       }
       return {
-        start: sessionStartTime.diff(timelineViewportStart).as("minutes"),
+        start: sessionStartTime.diff(timelineStart).as("minutes"),
         duration: sessionEndTime.diff(sessionStartTime).as("minutes") + 1,
         status,
       };

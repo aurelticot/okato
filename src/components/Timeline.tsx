@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { DateTime } from "luxon";
 import * as TimelineHelper from "helpers/TimelineHelper";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Paper, Divider } from "@material-ui/core";
 import { Session } from "interfaces/Market";
 import MarketStatus from "enums/MarketStatus";
+import config from "config";
+
+const timelineTotalDays = config.daysInFuture + config.daysInPast + 1;
+const timelineTotalSizeInSeconds = timelineTotalDays * 24 * 60 * 60;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +30,14 @@ const useStyles = makeStyles((theme) => ({
     width: "3px",
     opacity: "100%",
   },
+  timelineContainer: {
+    width: "100%",
+    overflow: "auto",
+  },
+  timeline: () => ({
+    display: "flex",
+    width: `${timelineTotalDays * 100}%`,
+  }),
 }));
 
 const useMarketStatusStyles = makeStyles((theme) => ({
@@ -86,6 +98,9 @@ function useSegments(sessions: Session[], timezone: string): TimelineHelper.Segm
 export interface TimelineProps {
   sessions: Session[];
   timezone: string;
+  time: Date | null;
+  registerScrollSync: (ref: React.MutableRefObject<HTMLDivElement | undefined>) => void;
+  unregisterScrollSync: (ref: React.MutableRefObject<HTMLDivElement | undefined>) => void;
   displayTimeMarker?: boolean;
 }
 
@@ -109,34 +124,62 @@ function defineSegmentClass(status: MarketStatus, classes: any): string {
 }
 
 export function Timeline(props: TimelineProps) {
-  const { sessions, timezone, displayTimeMarker } = props;
+  const { time, sessions, timezone, registerScrollSync, unregisterScrollSync, displayTimeMarker } = props;
+  const timelineRef = useRef<HTMLDivElement>();
 
   const segments = useSegments(sessions, timezone);
 
   const classes = useStyles();
   const marketStatusClasses = useMarketStatusStyles();
 
-  const timelineSegments = segments.map((segment) => {
+  const timelineSegments = segments.map((segment, index) => {
     const { status, duration } = segment;
     const segmentClass = defineSegmentClass(status, marketStatusClasses);
-    return (
-      <Paper
-        square
-        className={`${classes.segment} ${segmentClass}`}
-        style={{ flexGrow: duration }}
-        key={segment.start}
-      />
-    );
+    return <Paper square className={`${classes.segment} ${segmentClass}`} style={{ flexGrow: duration }} key={index} />;
   });
+
+  const initialScroll = React.useRef(true);
+
+  useLayoutEffect(() => {
+    if (!initialScroll.current) {
+      return;
+    }
+    initialScroll.current = false;
+
+    const timelineContainerElement = timelineRef.current;
+    if (!timelineContainerElement) {
+      return;
+    }
+    const timelineSize = timelineContainerElement.scrollWidth;
+    const middleTimelineViewport = timelineContainerElement.clientWidth / 2;
+    const middleTimeline = timelineSize / 2;
+    let timeDiff = 0;
+    if (time) {
+      const now = DateTime.fromJSDate(new Date(), { zone: timezone });
+      const targetTime = DateTime.fromJSDate(time);
+      const timeDiffInSec = targetTime.diff(now).as("seconds");
+      timeDiff = (timeDiffInSec * timelineSize) / timelineTotalSizeInSeconds;
+    }
+    timelineContainerElement.scrollLeft = middleTimeline + timeDiff - middleTimelineViewport;
+  }, [timelineRef, time, timezone]);
+
+  useLayoutEffect(() => {
+    registerScrollSync(timelineRef);
+    return () => {
+      unregisterScrollSync(timelineRef);
+    };
+  }, [registerScrollSync, unregisterScrollSync]);
 
   return (
     <Box className={classes.root}>
-      <Box display="flex">{timelineSegments}</Box>
       {displayTimeMarker && (
         <Box className={classes.timeMarkerContainer}>
           <Divider orientation="vertical" className={classes.timeMarker} />
         </Box>
       )}
+      <Box className={classes.timelineContainer} {...{ ref: timelineRef }}>
+        <Box className={classes.timeline}>{timelineSegments}</Box>
+      </Box>
     </Box>
   );
 }

@@ -2,8 +2,19 @@ import React from "react";
 import { Box } from "@material-ui/core";
 import { useIntl } from "react-intl";
 
-export function AppDate() {
+interface AppDateProps {
+  time: Date | null;
+}
+
+export function AppDate({ time }: AppDateProps) {
   const i18n = useIntl();
 
-  return <Box>{i18n.formatMessage({ id: "AppDateToday", defaultMessage: "Today" })}</Box>;
+  //i18n.formatMessage({ id: "AppDateToday", defaultMessage: "Today" })
+
+  return (
+    <>
+      {time && <Box>{i18n.formatDate(time)}</Box>}
+      {!time && <Box>{i18n.formatDate(new Date())}</Box>}
+    </>
+  );
 }
