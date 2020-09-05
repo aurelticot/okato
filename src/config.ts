@@ -5,7 +5,9 @@ import MarketSortingMethod from "enums/MarketSortingMethod";
 
 const timelineVisiblePeriod = 24;
 const daysInPast = 3;
+const daysRequestedInPast = daysInPast + 1;
 const daysInFuture = 3;
+const daysRequestedInFuture = daysInFuture + 1;
 
 const defaultPreferenceValues: Preferences = {
   [SettingKey.Theme]: "system",
@@ -17,7 +19,9 @@ const defaultPreferenceValues: Preferences = {
 export default {
   timelineVisiblePeriod,
   daysInPast,
+  daysRequestedInPast,
   daysInFuture,
+  daysRequestedInFuture,
   settings,
   defaultPreferenceValues,
 };

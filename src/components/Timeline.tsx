@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     width: "3px",
     opacity: "100%",
   },
+  timeline: {
+    display: "flex",
+  },
 }));
 
 const useMarketStatusStyles = makeStyles((theme) => ({
@@ -116,27 +119,20 @@ export function Timeline(props: TimelineProps) {
   const classes = useStyles();
   const marketStatusClasses = useMarketStatusStyles();
 
-  const timelineSegments = segments.map((segment) => {
+  const timelineSegments = segments.map((segment, index) => {
     const { status, duration } = segment;
     const segmentClass = defineSegmentClass(status, marketStatusClasses);
-    return (
-      <Paper
-        square
-        className={`${classes.segment} ${segmentClass}`}
-        style={{ flexGrow: duration }}
-        key={segment.start}
-      />
-    );
+    return <Paper square className={`${classes.segment} ${segmentClass}`} style={{ flexGrow: duration }} key={index} />;
   });
 
   return (
     <Box className={classes.root}>
-      <Box display="flex">{timelineSegments}</Box>
       {displayTimeMarker && (
         <Box className={classes.timeMarkerContainer}>
           <Divider orientation="vertical" className={classes.timeMarker} />
         </Box>
       )}
+      <Box className={classes.timeline}>{timelineSegments}</Box>
     </Box>
   );
 }
