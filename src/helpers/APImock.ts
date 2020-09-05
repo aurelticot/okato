@@ -80,6 +80,5 @@ export function getFeatureData(): Features {
   return {
     bookmark: new Feature("hidden"),
     reminder: new Feature("hidden"),
-    timelineScroll: new Feature("enabled"),
   };
 }
