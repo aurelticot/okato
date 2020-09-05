@@ -8,6 +8,7 @@ const settings: Settings = {
     localizedLabelKey: "settings.theme.label",
     values: [
       { key: "system", localizedLabelKey: "settings.theme.value.system.label" },
+      { key: "black", localizedLabelKey: "settings.theme.value.black.label" },
       { key: "dark", localizedLabelKey: "settings.theme.value.dark.label" },
       { key: "light", localizedLabelKey: "settings.theme.value.light.label" },
     ],

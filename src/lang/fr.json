@@ -171,6 +171,12 @@
       "value": "Sélectionnez un thème"
     }
   ],
+  "settings.theme.value.black.label": [
+    {
+      "type": 0,
+      "value": "Noir"
+    }
+  ],
   "settings.theme.value.dark.label": [
     {
       "type": 0,

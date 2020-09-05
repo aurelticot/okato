@@ -8,6 +8,9 @@
   "settings.theme.value.system.label": {
     "defaultMessage": "Préférence système"
   },
+  "settings.theme.value.black.label": {
+    "defaultMessage": "Noir"
+  },
   "settings.theme.value.dark.label": {
     "defaultMessage": "Foncé"
   },
