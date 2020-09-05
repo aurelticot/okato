@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
+import { DateTime } from "luxon";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { TimelineTime } from "components/TimelineTime";
@@ -8,22 +9,33 @@ import { Market } from "interfaces/Market";
 import { usePreference } from "hooks/preferencesHooks";
 import SettingKey from "enums/SettingKey";
 import { getSortingFunction, getMarketSortingMethodByString } from "enums/MarketSortingMethod";
-import { useSynchronizedScroll } from "hooks/SynchronizedTimelineHooks";
+import config from "config";
+import { TimelineRuler } from "components/TimelineRuler";
+
+const timelineTotalDays = config.daysInFuture + config.daysInPast + 1;
+const timelineTotalSizeInSeconds = timelineTotalDays * 24 * 60 * 60;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     marginBottom: "56px",
+    position: "relative",
+  },
+  container: {
+    width: "100%",
+    overflow: "auto",
+  },
+  timelines: {
+    width: `${timelineTotalDays * 100}%`,
   },
 }));
 
 export function TimelineView() {
-  const [markets, setMarkets] = useState<Market[]>([]);
   const [selectedMarkets] = usePreference(SettingKey.MarketSelection);
   const [marketSort] = usePreference(SettingKey.MarketSort);
-
+  const [markets, setMarkets] = React.useState<Market[]>([]);
   const sortMethod = getSortingFunction(getMarketSortingMethodByString(marketSort));
 
-  useEffect(() => {
+  React.useEffect(() => {
     getMarketData().then((marketsData) => {
       setMarkets(
         marketsData.filter((market) => {
@@ -33,40 +45,66 @@ export function TimelineView() {
     });
   }, [selectedMarkets]);
 
-  const [time, setTime] = useState<Date | null>(null);
+  const [time, setTime] = React.useState<Date | null>(null);
+  const containerRef = React.useRef<HTMLDivElement>();
 
-  const handleTimeNavigation = useCallback((newTime: Date) => {
-    setTime(newTime);
+  const handleScroll = React.useCallback(() => {
+    const containerElement = containerRef.current;
+    if (!containerElement) {
+      return;
+    }
+    const timelineSize = containerElement.scrollWidth;
+    const middleTimelineViewport = containerElement.clientWidth / 2;
+    const middleTimeline = timelineSize / 2;
+    const timeDiff = containerElement.scrollLeft - middleTimeline + middleTimelineViewport;
+    const timeDiffInSec = (timeDiff * timelineTotalSizeInSeconds) / timelineSize;
+    if (Math.abs(timeDiffInSec) < 60) {
+      return;
+    }
+    const now = DateTime.local();
+    const targetTime = now.plus({ seconds: timeDiffInSec });
+    setTime(targetTime.toJSDate());
   }, []);
 
-  const handleBackToRealTime = useCallback(() => {
+  const handleBackToRealTime = React.useCallback(() => {
     setTime(null);
   }, []);
 
-  const [registerScrollSync, unregisterScrollSync] = useSynchronizedScroll();
+  const initialScroll = React.useRef(true);
+
+  React.useLayoutEffect(() => {
+    if (!initialScroll.current && time) {
+      return;
+    }
+    initialScroll.current = false;
+    const containerElement = containerRef.current;
+    if (!containerElement) {
+      return;
+    }
+    const timelineSize = containerElement.scrollWidth;
+    const middleContainerViewport = containerElement.clientWidth / 2;
+    const middleTimeline = timelineSize / 2;
+    let timeDiff = 0;
+    if (time) {
+      const now = DateTime.fromJSDate(new Date());
+      const targetTime = DateTime.fromJSDate(time);
+      const timeDiffInSec = targetTime.diff(now).as("seconds");
+      timeDiff = (timeDiffInSec * timelineSize) / timelineTotalSizeInSeconds;
+    }
+    containerElement.scrollLeft = middleTimeline + timeDiff - middleContainerViewport;
+  }, [time]);
 
   const classes = useStyles();
   return (
     <Box className={classes.root}>
-      <TimelineTime
-        time={time}
-        onTimeNavigation={handleTimeNavigation}
-        onClickBackToRealTime={handleBackToRealTime}
-        registerScrollSync={registerScrollSync}
-        unregisterScrollSync={unregisterScrollSync}
-      />
-      <Box style={{ marginTop: "10px" }}>
-        {[...markets].sort(sortMethod).map((market) => {
-          return (
-            <TimelineItem
-              key={market.code}
-              time={time}
-              market={market}
-              registerScrollSync={registerScrollSync}
-              unregisterScrollSync={unregisterScrollSync}
-            />
-          );
-        })}
+      <TimelineTime time={time} onClickBackToRealTime={handleBackToRealTime} />
+      <Box className={classes.container} onScroll={handleScroll} {...{ ref: containerRef }}>
+        <Box className={classes.timelines}>
+          <TimelineRuler />
+          {[...markets].sort(sortMethod).map((market) => {
+            return <TimelineItem key={market.code} time={time} market={market} />;
+          })}
+        </Box>
       </Box>
     </Box>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Box } from "@material-ui/core";
+import { Box, Divider } from "@material-ui/core";
 import { MarketTitle } from "components/MarketTitle";
 import { RealTimeClock } from "components/RealTimeClock";
 import { MarketNextEvent } from "components/MarketNextEvent";
@@ -11,13 +11,29 @@ import { useNextEvent } from "hooks/nextEventHooks";
 import { Clock } from "./Clock";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  timelineHeaderPlaceholder: {
+    height: "1.6em",
+  },
+  timelineHeaderWrapper: {
+    width: "100%",
+    position: "absolute",
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
   },
   headerComponent: {
     flexBasis: "33.3333%",
+  },
+  timelineClock: {
+    position: "relative",
+  },
+  timeMarker: {
+    position: "absolute",
+    top: "1.4em",
+    height: "3.4em",
+    zIndex: 10,
+    width: "3px",
+    opacity: "100%",
   },
   marketOpen: {
     color: theme.palette.success.main,
@@ -60,16 +76,19 @@ export function TimelineItemHeader(props: TimelineItemHeaderProps) {
   const marketStatusClass = defineMarketStatusClass(status, classes);
 
   return (
-    <Box className={`${classes.root} ${marketStatusClass}`}>
-      <Box className={`${classes.headerComponent}`} display="flex" justifyContent="flex-start">
-        <MarketTitle market={market} time={time} />
-      </Box>
-      <Box className={`${classes.headerComponent}`} display="flex" justifyContent="center">
-        {time && <Clock time={time} timezone={market.timezone} displayTimezone displayDayDiff />}
-        {!time && <RealTimeClock timezone={market.timezone} displayTimezone displayDayDiff />}
-      </Box>
-      <Box className={classes.headerComponent} display="flex" justifyContent="flex-end">
-        {nextEvent !== null && !time && <MarketNextEvent nextEvent={nextEvent} />}
+    <Box className={classes.timelineHeaderPlaceholder}>
+      <Box className={`${classes.timelineHeaderWrapper} ${marketStatusClass}`}>
+        <Box className={`${classes.headerComponent}`} display="flex" justifyContent="flex-start">
+          <MarketTitle market={market} time={time} />
+        </Box>
+        <Box className={`${classes.headerComponent} ${classes.timelineClock}`} display="flex" justifyContent="center">
+          {time && <Clock time={time} timezone={market.timezone} displayTimezone displayDayDiff />}
+          {!time && <RealTimeClock timezone={market.timezone} displayTimezone displayDayDiff />}
+          <Divider orientation="vertical" className={classes.timeMarker} />
+        </Box>
+        <Box className={classes.headerComponent} display="flex" justifyContent="flex-end">
+          {nextEvent !== null && !time && <MarketNextEvent nextEvent={nextEvent} />}
+        </Box>
       </Box>
     </Box>
   );

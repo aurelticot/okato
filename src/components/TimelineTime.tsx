@@ -6,7 +6,6 @@ import { AppDate } from "components/AppDate";
 import { RealTimeClock } from "components/RealTimeClock";
 import { useFeature } from "hooks/featuresHooks";
 import { Clock } from "components/Clock";
-import { TimelineTimeRuler } from "components/TimelineTimeRuler";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,13 +24,10 @@ const useStyles = makeStyles((theme) => ({
 interface TimelineTimeProps {
   time: Date | null;
   onClickBackToRealTime: () => void;
-  onTimeNavigation: (time: Date) => void;
-  registerScrollSync: (ref: React.MutableRefObject<HTMLDivElement | undefined>) => void;
-  unregisterScrollSync: (ref: React.MutableRefObject<HTMLDivElement | undefined>) => void;
 }
 
 export function TimelineTime(props: TimelineTimeProps) {
-  const { time, onClickBackToRealTime, onTimeNavigation, registerScrollSync, unregisterScrollSync } = props;
+  const { time, onClickBackToRealTime } = props;
   const classes = useStyles();
   const timelineScroll = useFeature("timelineScroll");
 
@@ -49,12 +45,6 @@ export function TimelineTime(props: TimelineTimeProps) {
         {time && <Clock time={time} />}
         {!time && <RealTimeClock />}
       </Box>
-      <TimelineTimeRuler
-        time={time}
-        onTimeNavigation={onTimeNavigation}
-        registerScrollSync={registerScrollSync}
-        unregisterScrollSync={unregisterScrollSync}
-      />
     </Box>
   );
 }
