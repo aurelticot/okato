@@ -3,7 +3,7 @@ import { Session } from "interfaces/Market";
 import MarketStatus from "enums/MarketStatus";
 import config from "config";
 
-const { daysInFuture, daysInPast } = config;
+const { daysInFuture, daysInPast, timelineVisiblePeriod } = config;
 
 export interface Segment {
   start: number;
@@ -44,19 +44,16 @@ function cleanTimelineSegments(segments: Segment[]): Segment[] {
 }
 
 export function resolveTimelineSegments(time: DateTime, timezone: string, sessions: Session[]): Segment[] {
-  const timelineStart = time.minus({ days: daysInPast });
-  const timelineEnd = time.plus({ days: daysInFuture });
-
-  //const timelineViewportStart = time.minus({ hours: timelineVisiblePeriod / 2 });
-  //const timelineViewportEnd = time.plus({ hours: timelineVisiblePeriod / 2 });
+  const timelineStart = time.minus({ days: daysInPast, hours: timelineVisiblePeriod / 2 });
+  const timelineEnd = time.plus({ days: daysInFuture, hours: timelineVisiblePeriod / 2 });
 
   const segments = sessions
-    // .filter((session) => {
-    //   return !(
-    //     DateTime.fromJSDate(session.startTime, { zone: timezone }) > timelineEnd ||
-    //     DateTime.fromJSDate(session.endTime, { zone: timezone }) < timelineStart
-    //   );
-    // })
+    .filter((session) => {
+      return !(
+        DateTime.fromJSDate(session.startTime, { zone: timezone }) > timelineEnd ||
+        DateTime.fromJSDate(session.endTime, { zone: timezone }) < timelineStart
+      );
+    })
     .map((session) => {
       const { startTime, endTime, status } = session;
       let sessionStartTime = DateTime.fromJSDate(startTime, { zone: timezone });

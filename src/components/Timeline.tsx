@@ -69,7 +69,7 @@ const useMarketStatusStyles = makeStyles((theme) => ({
 function useSegments(sessions: Session[], timezone: string): TimelineHelper.Segment[] {
   const now = DateTime.local().setZone(timezone);
   const initialSegments: TimelineHelper.Segment[] = TimelineHelper.resolveTimelineSegments(now, timezone, sessions);
-  const [segments, setSegments] = useState(initialSegments);
+  const [segments, setSegments] = useState<TimelineHelper.Segment[]>(initialSegments);
   const updateSegments = () => {
     const newNow = DateTime.local().setZone(timezone);
     const newSegments: TimelineHelper.Segment[] = TimelineHelper.resolveTimelineSegments(newNow, timezone, sessions);
@@ -132,7 +132,13 @@ export function Timeline(props: TimelineProps) {
           <Divider orientation="vertical" className={classes.timeMarker} />
         </Box>
       )}
-      <Box className={classes.timeline}>{timelineSegments}</Box>
+      <Box className={classes.timeline}>
+        {timelineSegments.length > 0 ? (
+          timelineSegments
+        ) : (
+          <Paper square className={`${classes.segment} ${marketStatusClasses.close}`} style={{ width: "100%" }} />
+        )}
+      </Box>
     </Box>
   );
 }

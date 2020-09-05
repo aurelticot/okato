@@ -17,7 +17,7 @@ export function TimelineRuler() {
   const classes = useStyles();
   return (
     <Box className={classes.ruler}>
-      {[1, 2, 3, 4, 5, 6, 7, 8].map((value) => {
+      {[1, 2, 3, 4, 5, 6].map((value) => {
         return <Divider orientation="vertical" className={classes.segment} key={value} />;
       })}
     </Box>

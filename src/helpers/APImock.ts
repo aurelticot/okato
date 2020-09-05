@@ -6,7 +6,7 @@ import { Features } from "interfaces/Features";
 import Feature from "helpers/Feature";
 import { sortCapitalisation } from "enums/MarketSortingMethod";
 
-export function getMarketData(): Promise<Market[]> {
+export function getMarketData(startDate?: Date, endDate?: Date): Promise<Market[]> {
   const reworkedData: Market[] = marketsData
     .map((market) => {
       // structure market
@@ -43,8 +43,10 @@ export function getMarketData(): Promise<Market[]> {
         .map((session) => {
           // change from weekday and generic time to actual date
           const offset = getRotationOffset(now.weekday, session.weekday);
-          const startTime = DateTime.fromISO(session.start, { zone: timezone }).plus({ days: offset });
-          const endTime = DateTime.fromISO(session.end, { zone: timezone }).plus({ days: offset });
+          const startTime = DateTime.fromISO(session.start, { zone: timezone })
+            .plus({ days: offset })
+            .startOf("minute");
+          const endTime = DateTime.fromISO(session.end, { zone: timezone }).plus({ days: offset }).endOf("minute");
           return {
             status: getMarketStatusFromString(session.status),
             startTime: startTime.toJSDate(),

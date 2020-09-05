@@ -4,9 +4,9 @@ import settings from "settings";
 import MarketSortingMethod from "enums/MarketSortingMethod";
 
 const timelineVisiblePeriod = 24;
-const daysInPast = 3;
+const daysInPast = 2;
 const daysRequestedInPast = daysInPast + 1;
-const daysInFuture = 3;
+const daysInFuture = 2;
 const daysRequestedInFuture = daysInFuture + 1;
 
 const defaultPreferenceValues: Preferences = {
