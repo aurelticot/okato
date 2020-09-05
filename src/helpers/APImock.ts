@@ -8,7 +8,7 @@ import { sortCapitalisation } from "enums/MarketSortingMethod";
 
 export function getMarketData(): Promise<Market[]> {
   const reworkedData: Market[] = marketsData
-    .map((market, index) => {
+    .map((market) => {
       // structure market
       return {
         code: market.code,
@@ -80,6 +80,6 @@ export function getFeatureData(): Features {
   return {
     bookmark: new Feature("hidden"),
     reminder: new Feature("hidden"),
-    timelineScroll: new Feature("disabled"),
+    timelineScroll: new Feature("enabled"),
   };
 }
