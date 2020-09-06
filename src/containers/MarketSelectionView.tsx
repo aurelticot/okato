@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { getMarketData } from "helpers/APImock";
 import { Box, List, ListSubheader, ListItemText, ListItem, ListItemSecondaryAction, Switch } from "@material-ui/core";
 import { Market } from "interfaces/Market";
-import { usePreference } from "hooks/preferencesHooks";
+import { useUserSetting } from "hooks/settingsHooks";
 import SettingKey from "enums/SettingKey";
 import { useIntl } from "react-intl";
 
 export function MarketSelectionView() {
   const [allMarkets, setAllMarkets] = useState<Market[]>([]);
-  const [marketSelection, setMarketSelection] = usePreference(SettingKey.MarketSelection);
+  const [marketSelection, setMarketSelection] = useUserSetting(SettingKey.MarketSelection);
 
   useEffect(() => {
     getMarketData().then((marketsData) => {

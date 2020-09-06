@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useState, useEffect } from "react";
 import { ThemeProvider, Theme } from "@material-ui/core/styles";
 import { getTheme } from "themes/themes";
-import { usePreference } from "hooks/preferencesHooks";
+import { useUserSetting } from "hooks/settingsHooks";
 import SettingKey from "enums/SettingKey";
 
 function useSystemTheme(): string {
@@ -19,20 +19,18 @@ function useSystemTheme(): string {
   return systemTheme;
 }
 
-function resolveTheme(systemTheme: string, themePreference: string | string[]): string {
-  return !themePreference || themePreference === "system" || Array.isArray(themePreference)
-    ? systemTheme
-    : themePreference;
+function resolveTheme(systemTheme: string, userTheme: string | string[]): string {
+  return !userTheme || userTheme === "system" || Array.isArray(userTheme) ? systemTheme : userTheme;
 }
 
 export function ThemesProvider(props: PropsWithChildren<{}>) {
   const systemTheme = useSystemTheme();
-  const [themePreference] = usePreference(SettingKey.Theme);
+  const [userTheme] = useUserSetting(SettingKey.Theme);
 
-  const [appliedTheme, setAppliedTheme] = useState<Theme>(getTheme(resolveTheme(systemTheme, themePreference)));
+  const [appliedTheme, setAppliedTheme] = useState<Theme>(getTheme(resolveTheme(systemTheme, userTheme)));
   useEffect(() => {
-    setAppliedTheme(getTheme(resolveTheme(systemTheme, themePreference)));
-  }, [systemTheme, themePreference]);
+    setAppliedTheme(getTheme(resolveTheme(systemTheme, userTheme)));
+  }, [systemTheme, userTheme]);
 
   return <ThemeProvider theme={appliedTheme}>{props.children}</ThemeProvider>;
 }

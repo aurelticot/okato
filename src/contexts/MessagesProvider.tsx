@@ -3,7 +3,7 @@ import { IntlProvider } from "react-intl";
 import frenchMessages from "lang/fr.json";
 import englishMessages from "lang/en.json";
 import SettingKey from "enums/SettingKey";
-import { usePreference } from "hooks/preferencesHooks";
+import { useUserSetting } from "hooks/settingsHooks";
 
 const defaultLanguage = "en";
 
@@ -44,8 +44,8 @@ function getLocaleMessages(locale: string | string[]): any {
 
 export function MessagesProvider(props: PropsWithChildren<{}>) {
   const browserLanguage = getBrowserLanguage();
-  const [languagePreference] = usePreference(SettingKey.Language);
-  const locale: string = resolveLanguageValue(languagePreference || browserLanguage);
+  const [userLanguage] = useUserSetting(SettingKey.Language);
+  const locale: string = resolveLanguageValue(userLanguage || browserLanguage);
   const messages = getLocaleMessages(locale);
 
   return (

@@ -1,5 +1,5 @@
 import SettingKey from "enums/SettingKey";
-import Preferences from "interfaces/Preferences";
+import UserSettings from "interfaces/UserSettings";
 import settings from "settings";
 import MarketSortingMethod from "enums/MarketSortingMethod";
 
@@ -9,7 +9,7 @@ const daysRequestedInPast = daysInPast + 1;
 const daysInFuture = 2;
 const daysRequestedInFuture = daysInFuture + 1;
 
-const defaultPreferenceValues: Preferences = {
+const defaultUserSettings: UserSettings = {
   [SettingKey.Theme]: "system",
   [SettingKey.Language]: "system",
   [SettingKey.MarketSelection]: ["NYSE", "NASDAQ", "EURONEXT"],
@@ -23,5 +23,5 @@ export default {
   daysInFuture,
   daysRequestedInFuture,
   settings,
-  defaultPreferenceValues,
+  defaultUserSettings,
 };

@@ -6,7 +6,7 @@ import { TimelineTime } from "components/TimelineTime";
 import { TimelineItem } from "components/TimelineItem";
 import { getMarketData } from "helpers/APImock";
 import { Market } from "interfaces/Market";
-import { usePreference } from "hooks/preferencesHooks";
+import { useUserSetting } from "hooks/settingsHooks";
 import SettingKey from "enums/SettingKey";
 import { getSortingFunction, getMarketSortingMethodByString } from "enums/MarketSortingMethod";
 import config from "config";
@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function TimelineView() {
-  const [selectedMarkets] = usePreference(SettingKey.MarketSelection);
-  const [marketSort] = usePreference(SettingKey.MarketSort);
+  const [selectedMarkets] = useUserSetting(SettingKey.MarketSelection);
+  const [marketSort] = useUserSetting(SettingKey.MarketSort);
   const [markets, setMarkets] = React.useState<Market[]>([]);
   const sortMethod = getSortingFunction(getMarketSortingMethodByString(marketSort));
 

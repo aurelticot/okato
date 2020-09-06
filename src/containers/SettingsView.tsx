@@ -6,16 +6,16 @@ import {
   Translate as LanguageIcon,
   SortByAlpha as SortByAlphaIcon,
 } from "@material-ui/icons";
-import { usePreference } from "hooks/preferencesHooks";
+import { useUserSetting } from "hooks/settingsHooks";
 import SettingKey from "enums/SettingKey";
-import PreferenceValueDefinition from "interfaces/SettingValue";
+import SettingValueDefinition from "interfaces/SettingValue";
 import { useIntl } from "react-intl";
 
 export function SettingsView() {
   interface DialogProps {
     title: string;
     selectedValue: string | string[];
-    values: PreferenceValueDefinition[];
+    values: SettingValueDefinition[];
     onClose: (value: string | string[]) => void;
   }
 
@@ -46,7 +46,7 @@ export function SettingsView() {
     description: "Title of the Settings view",
   });
 
-  const [theme, setTheme, themesSettingsDefinition] = usePreference(SettingKey.Theme);
+  const [theme, setTheme, themesSettingsDefinition] = useUserSetting(SettingKey.Theme);
   const selectedThemeDefinition = themesSettingsDefinition.values.filter((valueDefinition) => {
     return valueDefinition.key === theme;
   })[0];
@@ -57,7 +57,7 @@ export function SettingsView() {
     onClose: setTheme,
   };
 
-  const [language, setLanguage, languagesSettingsDefinition] = usePreference(SettingKey.Language);
+  const [language, setLanguage, languagesSettingsDefinition] = useUserSetting(SettingKey.Language);
   const selectedLanguageDefinition = languagesSettingsDefinition.values.filter((valueDefinition) => {
     return valueDefinition.key === language;
   })[0];
@@ -68,7 +68,7 @@ export function SettingsView() {
     onClose: setLanguage,
   };
 
-  const [marketSort, setMarketSort, marketSortSettingsDefinition] = usePreference(SettingKey.MarketSort);
+  const [marketSort, setMarketSort, marketSortSettingsDefinition] = useUserSetting(SettingKey.MarketSort);
   const selectedMarketSortDefinition = marketSortSettingsDefinition.values.filter((valueDefinition) => {
     return valueDefinition.key === marketSort;
   })[0];
