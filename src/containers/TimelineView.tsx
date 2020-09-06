@@ -11,6 +11,7 @@ import SettingKey from "enums/SettingKey";
 import { getSortingFunction, getMarketSortingMethodByString } from "enums/MarketSortingMethod";
 import config from "config";
 import { TimelineRuler } from "components/TimelineRuler";
+import { useBaseTime } from "hooks/customHooks";
 
 const timelineTotalDays = config.daysInFuture + config.daysInPast + 1;
 const timelineTotalSizeInSeconds = timelineTotalDays * 24 * 60 * 60;
@@ -45,7 +46,7 @@ export function TimelineView() {
     });
   }, [selectedMarkets]);
 
-  const [time, setTime] = React.useState<Date | null>(null);
+  const [time, setTime] = useBaseTime();
   const containerRef = React.useRef<HTMLDivElement>();
 
   const handleScroll = React.useCallback(() => {
@@ -64,11 +65,11 @@ export function TimelineView() {
     const now = DateTime.local();
     const targetTime = now.plus({ seconds: timeDiffInSec });
     setTime(targetTime.toJSDate());
-  }, []);
+  }, [setTime]);
 
   const handleBackToRealTime = React.useCallback(() => {
     setTime(null);
-  }, []);
+  }, [setTime]);
 
   const initialScroll = React.useRef(true);
 

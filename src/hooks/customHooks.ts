@@ -33,3 +33,22 @@ export function useSessionSavedState(
 
   return [value, setValue, clear];
 }
+
+export function useBaseTime(): [Date | null, (value: Date | null) => void] {
+  const key = "baseTime";
+
+  const storedTime = window.sessionStorage ? window.sessionStorage.getItem(key) : null;
+  const initialTime: Date | null = storedTime ? new Date(Number(storedTime)) : null;
+
+  const [time, setTime] = React.useState<Date | null>(initialTime);
+
+  React.useEffect(() => {
+    if (time) {
+      window.sessionStorage.setItem(key, JSON.stringify(time.getTime()));
+    } else {
+      window.sessionStorage.removeItem(key);
+    }
+  }, [key, time]);
+
+  return [time, setTime];
+}
