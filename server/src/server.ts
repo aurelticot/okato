@@ -2,6 +2,8 @@ import { Logger } from "./lib/utils";
 const logger = new Logger("server");
 
 import express, { Express } from "express";
+import bodyParser from "body-parser";
+import helmet from "helmet";
 
 export default class Server {
   private readonly port: number;
@@ -10,6 +12,11 @@ export default class Server {
   constructor(port: number) {
     this.port = port;
     this.server = express();
+
+    //declare middleware
+    this.server.use(helmet());
+    this.server.use(bodyParser.urlencoded({ extended: true }));
+    this.server.use(bodyParser.json({ limit: "2mb" }));
   }
 
   start = async (): Promise<void> => {
