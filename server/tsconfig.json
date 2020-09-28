@@ -5,7 +5,7 @@
     "rootDir": "./src",
     "outDir": "./build",
     "esModuleInterop": true,
-    "strict": true
-  },
-  "exclude": ["temp"]
+    "strict": true,
+    "typeRoots": ["./@types", "./node_modules/@types"]
+  }
 }
