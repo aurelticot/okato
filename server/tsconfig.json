@@ -5,8 +5,7 @@
     "rootDir": "./src",
     "outDir": "./build",
     "esModuleInterop": true,
-    "strict": true,
-    "baseUrl": "src"
+    "strict": true
   },
   "exclude": ["temp"]
 }
