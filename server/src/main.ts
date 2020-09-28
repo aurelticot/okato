@@ -9,20 +9,24 @@ export default class Main {
 
   createWorker(): cluster.Worker {
     logger.silly("main.ts - enter createWorker()");
-    logger.verbose(`Forking process`);
+    logger.verbose(`Forking process...`);
     return cluster.fork();
   }
 
-  run = async (): Promise<void> => {
+  run = (): void => {
     logger.silly("main.ts - enter Main#run()");
     logger.verbose(`Main ${process.pid} is started`);
 
     const concurrency = config.concurrency;
 
     logger.info(`Starting application...`);
+    logger.debug(``);
+    logger.debug(`========================================`);
     logger.debug(`NODE_ENV: ${config.nodeEnv}`);
     logger.debug(`PORT: ${config.port}`);
     logger.debug(`concurrency: ${concurrency}`);
+    logger.debug(`========================================`);
+    logger.debug(``);
 
     logger.verbose(`Creating ${concurrency} workers`);
     for (let i = 0; i < concurrency; i++) {
