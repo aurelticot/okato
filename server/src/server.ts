@@ -4,6 +4,7 @@ const logger = new Logger("server");
 import express, { Express } from "express";
 import bodyParser from "body-parser";
 import helmet from "helmet";
+import compression from "compression";
 import { requestId, requestLogger, startAt } from "./lib/middlewares";
 
 export default class Server {
@@ -21,6 +22,10 @@ export default class Server {
     this.server.use(bodyParser.urlencoded({ extended: true }));
     this.server.use(bodyParser.json({ limit: "2mb" }));
     this.server.use(requestLogger());
+    this.server.use(compression());
+
+    this.server.use(express.static(`${__dirname}/client`));
+    this.server.get("/*", (_req, res) => res.sendFile(`${__dirname}/client/index.html`));
   }
 
   start = (): void => {
