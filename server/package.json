@@ -9,10 +9,13 @@
     "build": "tsc -p ./"
   },
   "dependencies": {
+    "apollo-server-express": "^2.18.1",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "express": "^4.17.1",
+    "graphql": "^15.3.0",
     "helmet": "^4.1.1",
+    "lodash.merge": "^4.6.2",
     "nanoid": "^3.1.12",
     "on-headers": "^1.0.2",
     "winston": "^3.3.3"
@@ -22,6 +25,7 @@
     "@types/compression": "^1.7.0",
     "@types/express": "^4.17.8",
     "@types/helmet": "0.0.48",
+    "@types/lodash.merge": "^4.6.6",
     "@types/nanoid": "^2.1.0",
     "@types/node": "^12.12.54",
     "@types/on-headers": "^1.0.0",

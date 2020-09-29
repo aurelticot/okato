@@ -6,6 +6,8 @@ import bodyParser from "body-parser";
 import helmet from "helmet";
 import compression from "compression";
 import { requestId, requestLogger, startAt } from "./lib/middlewares";
+import { ApolloServer } from "apollo-server-express";
+import { typeDefs, resolvers } from "./api/graphql";
 
 export default class Server {
   private readonly port: number;
@@ -24,8 +26,17 @@ export default class Server {
     this.server.use(requestLogger());
     this.server.use(compression());
 
+    // serve client
     this.server.use(express.static(`${__dirname}/client`));
     this.server.get("/*", (_req, res) => res.sendFile(`${__dirname}/client/index.html`));
+
+    // declare graphql API
+    const apolloServer = new ApolloServer({
+      typeDefs,
+      resolvers,
+      context: ({ req, res }) => ({ req, res }),
+    });
+    apolloServer.applyMiddleware({ app: this.server, path: "/api/graphql" });
   }
 
   start = (): void => {
