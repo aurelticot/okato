@@ -2,7 +2,6 @@
   "name": "okato-server",
   "description": "Server of the Okato application",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "start:dev": "nodemon",
     "start": "node build/index.js",
@@ -16,6 +15,7 @@
     "graphql": "^15.3.0",
     "helmet": "^4.1.1",
     "lodash.merge": "^4.6.2",
+    "luxon": "^1.25.0",
     "nanoid": "^3.1.12",
     "on-headers": "^1.0.2",
     "winston": "^3.3.3"
@@ -26,6 +26,7 @@
     "@types/express": "^4.17.8",
     "@types/helmet": "0.0.48",
     "@types/lodash.merge": "^4.6.6",
+    "@types/luxon": "^1.25.0",
     "@types/nanoid": "^2.1.0",
     "@types/node": "^12.12.54",
     "@types/on-headers": "^1.0.0",
