@@ -8,6 +8,8 @@ import compression from "compression";
 import { requestId, requestLogger, startAt } from "./lib/middlewares";
 import { ApolloServer } from "apollo-server-express";
 import { typeDefs, resolvers } from "./api/graphql";
+import { GraphQLContext } from "./lib/types";
+import { connectDatabase } from "./database";
 
 export default class Server {
   private readonly port: number;
@@ -26,17 +28,19 @@ export default class Server {
     this.server.use(requestLogger());
     this.server.use(compression());
 
-    // serve client
-    this.server.use(express.static(`${__dirname}/client`));
-    this.server.get("/*", (_req, res) => res.sendFile(`${__dirname}/client/index.html`));
+    const db = connectDatabase();
 
     // declare graphql API
     const apolloServer = new ApolloServer({
       typeDefs,
       resolvers,
-      context: ({ req, res }) => ({ req, res }),
+      context: ({ req, res }): GraphQLContext => ({ req, res, db }),
     });
     apolloServer.applyMiddleware({ app: this.server, path: "/api/graphql" });
+
+    // serve client
+    this.server.use(express.static(`${__dirname}/client`));
+    this.server.get("/*", (_req, res) => res.sendFile(`${__dirname}/client/index.html`));
   }
 
   start = (): void => {
