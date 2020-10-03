@@ -1,51 +1,33 @@
 {
   "name": "okato",
+  "description": "Okato application - Stock Exchange trading sessions",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "@types/jest": "^24.9.1",
-    "@types/luxon": "^1.24.3",
-    "@types/node": "^12.12.54",
-    "@types/react": "^16.9.44",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-router-dom": "^5.1.5",
-    "luxon": "^1.24.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-intl": "5.4.3",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
-    "typescript": "^3.7.5"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "extractMessages": "formatjs extract 'src/**/*.ts*' --out-file messages/en.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
-    "compileMessages": "formatjs compile-folder --ast messages/ src/lang/"
+    "clean:node_modules": "rm -rf {.,server,client}/node_modules/",
+    "clean:build": "rm -rf {.,server,client}/build/",
+    "clean": "npm run clean:build && npm run clean:node_modules",
+    "postinstall:server": "cd server/ && npm install",
+    "postinstall:client": "cd client/ && npm install",
+    "postinstall": "npm run postinstall:server && npm run postinstall:client",
+    "prebuild": "npm run clean:build",
+    "build:server": "cd server/ && npm run build && mv build/ ../build/",
+    "build:client": "cd client/ && npm run build && mv build/ ../build/client/",
+    "build": "npm run build:server && npm run build:client",
+    "start:dev:server": "cd server/ && npm run start:dev",
+    "start:dev:client": "cd client/ && npm start",
+    "start:dev": "concurrently --kill-others-on-fail \"npm run start:dev:server\" \"npm run start:dev:client\"",
+    "start:build": "node -r dotenv/config build/index.js dotenv_config_path=./server/.env",
+    "start": "node build/index.js"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "server": "file:./server",
+    "client": "file:./client"
   },
   "devDependencies": {
-    "@formatjs/cli": "^2.7.3"
+    "concurrently": "^5.3.0"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
