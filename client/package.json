@@ -5,13 +5,15 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "INLINE_RUNTIME_CHUNK=false react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "extractMessages": "formatjs extract 'src/**/*.ts*' --out-file messages/en.json --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
     "compileMessages": "formatjs compile-folder --ast messages/ src/lang/"
   },
-  "devDependencies": {
+  "dependencies": {
+    "@apollo/react-hooks": "^3.0.0",
+    "@formatjs/cli": "^2.7.3",
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@testing-library/jest-dom": "^4.2.4",
@@ -23,14 +25,15 @@
     "@types/react": "^16.9.44",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
+    "apollo-boost": "^0.4.9",
+    "graphql": "^15.3.0",
     "luxon": "^1.24.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-intl": "5.4.3",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
-    "typescript": "^3.7.5",
-    "@formatjs/cli": "^2.7.3"
+    "react-scripts": "^3.4.3",
+    "typescript": "^3.7.5"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -46,5 +49,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "proxy": "http://localhost:9000"
 }
